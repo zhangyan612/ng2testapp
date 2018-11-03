@@ -11,6 +11,7 @@ import { StarComponent } from './shared/star.component';
 import { ProductDetailComponent } from './products/product-detail/product-detail.component';
 import { HomeComponent } from './home/home.component';
 import { ProductDetailGuard } from './products/product-detail.guard';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { ProductDetailGuard } from './products/product-detail.guard';
     BrowserModule,
     FormsModule,
     HttpClientModule,
+    NgbModule,
     RouterModule.forRoot([
       { path: 'products', component: ProductListComponent },
       { path: 'products/:id', 
