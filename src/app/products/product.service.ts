@@ -9,13 +9,13 @@ import { IProduct } from "./product";
     providedIn: 'root'
 })
 export class ProductService {
-    private productUrl = 'api/products/products.json';
+    private productUrl = 'http://localhost:57603/api/product';
 
     constructor(private http: HttpClient){}
 
     getProducts(): Observable<IProduct[]> {
         return this.http.get<IProduct[]>(this.productUrl).pipe(
-            tap(data => console.log('server returns: ') + JSON.stringify(data)),
+            tap(data => console.log('server returns: '+ JSON.stringify(data))),
             catchError(this.handleError)
         );
     }
@@ -23,7 +23,6 @@ export class ProductService {
     getProduct(id: number): Observable<IProduct> {
         return this.getProducts().pipe(map((products: IProduct[]) => products.find(p => p.productId === id)));
     }
-
 
     private handleError(err: HttpErrorResponse) {
         let errorMessage = ''

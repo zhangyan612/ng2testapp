@@ -12,6 +12,7 @@ import { ProductDetailComponent } from './products/product-detail/product-detail
 import { HomeComponent } from './home/home.component';
 import { ProductDetailGuard } from './products/product-detail.guard';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { QuoteComponent } from './quote/quote.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     ConvertToSpacesPipe,
     StarComponent,
     ProductDetailComponent,
-    HomeComponent
+    HomeComponent,
+    QuoteComponent
   ],
   imports: [
     BrowserModule,
@@ -28,6 +30,7 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
     HttpClientModule,
     NgbModule,
     RouterModule.forRoot([
+      { path: 'quote', component: QuoteComponent },
       { path: 'products', component: ProductListComponent },
       { path: 'products/:id', 
         canActivate: [ProductDetailGuard],
