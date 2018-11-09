@@ -14,6 +14,7 @@ import { ProductDetailGuard } from './products/product-detail.guard';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { QuoteComponent } from './quote/quote.component';
 import { SignupComponent } from './signup/signup.component';
+import { SqlComponent } from './sql/sql.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { SignupComponent } from './signup/signup.component';
     ProductDetailComponent,
     HomeComponent,
     QuoteComponent,
-    SignupComponent
+    SignupComponent,
+    SqlComponent
   ],
   imports: [
     BrowserModule,
@@ -33,6 +35,7 @@ import { SignupComponent } from './signup/signup.component';
     HttpClientModule,
     NgbModule,
     RouterModule.forRoot([
+      { path: 'sql', component: SqlComponent },
       { path: 'quote', component: QuoteComponent },
       { path: 'products', component: ProductListComponent },
       { path: 'products/:id', 

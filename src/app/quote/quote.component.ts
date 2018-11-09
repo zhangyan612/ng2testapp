@@ -76,8 +76,6 @@ export class QuoteComponent implements OnInit {
     );
   }
 
-
-
   populateTestData(): void {
     this.customerForm.patchValue({
       firstName: 'Jack',
@@ -95,6 +93,15 @@ export class QuoteComponent implements OnInit {
     this.customerForm.setControl('addresses', this.fb.array([addressGroup]));
   }
 
+  getData(): void {
+    this.dataService.getById('product', 1).subscribe(
+      quote => {
+          this.quote = quote;
+      },
+      error => this.errorMessage = <any>error
+    );
+  }
+  
   save() {
     console.log(this.customerForm);
     console.log('Saved: ' + JSON.stringify(this.customerForm.value));

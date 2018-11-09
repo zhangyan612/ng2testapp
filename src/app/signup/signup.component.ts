@@ -143,15 +143,6 @@ export class SignupComponent implements OnInit {
 
 
 
-  getData(): void {
-    this.dataService.getById('product', 1).subscribe(
-      quote => {
-          this.quote = quote;
-      },
-      error => this.errorMessage = <any>error
-    );
-  }
-
   toUpperCase(value: string): void{
     if(value.length > 0){
       this.quote.firstName = value.charAt(0).toUpperCase() + value.slice(1);

@@ -1,62 +1,84 @@
 
 <form #form='ngForm' novalidate>
 
-  <div class="form-group">
-    <label class="col-form-label-sm" for="FirstName">First Name</label>
-    <input #firstName class="form-control form-control-sm" type="text" placeholder="FirstName" name="FirstName"
-      [ngModel]="quote.firstName" (ngModelChange)="toUpperCase($event)">
-    <div class=""></div>
-  </div>
-
-  <!-- <div class="form-group">
-      <label for="LastName">Last Name</label>
-      <input class="form-control" type="text" placeholder="LastName" name="LastName" 
-        [(ngModel)]="quote.lastName">
-  </div>
+    <div class="form-group">
+      <label class="col-form-label-sm" for="FirstName">First Name</label>
+      <input #firstName class="form-control form-control-sm" type="text" placeholder="FirstName" name="FirstName"
+        [ngModel]="quote.firstName" (ngModelChange)="toUpperCase($event)">
+      <div class=""></div>
+    </div>
   
-  <div class="checkbox">
-    <label>
-      <input type="checkbox" name="isfulltime" [(ngModel)]="quote.isFullTime"> Full Time Employee
-    </label>
-  </div>
-
-  <label>Payment Type</label>
-  <div class="radio">
-    <label>
-      <input type="radio" name="paymentType" value="w2" [(ngModel)]="quote.paymentType" checked>
-      W2
-    </label>
-  </div>
-
-  <div class="radio">
+    <!-- <div class="form-group">
+        <label for="LastName">Last Name</label>
+        <input class="form-control" type="text" placeholder="LastName" name="LastName" 
+          [(ngModel)]="quote.lastName">
+    </div>
+    
+    <div class="checkbox">
       <label>
-        <input type="radio" name="paymentType" value="1099" [(ngModel)]="quote.paymentType">
-        1099
+        <input type="checkbox" name="isfulltime" [(ngModel)]="quote.isFullTime"> Full Time Employee
       </label>
-  </div>
+    </div>
   
-  <div class="form-group">
-      <label for="FirstName">Primary Language</label>
-      <select class="form-control" name="primaryLanguage" [(ngModel)]="quote.primaryLanguage">
-        <option *ngFor="let lang of languages">{{lang}}</option>
-      </select>
-  </div>
-
-  <div class="form-group">
-    <div class="input-group">
-      <input class="form-control" placeholder="yyyy-mm-dd"
-             name="effDate" [(ngModel)]="eff" ngbDatepicker #effDate="ngbDatepicker">
-      <div class="input-group-append">
-        <button class="btn btn-outline-secondary calendar" (click)="effDate.toggle()" type="button"></button>
+    <label>Payment Type</label>
+    <div class="radio">
+      <label>
+        <input type="radio" name="paymentType" value="w2" [(ngModel)]="quote.paymentType" checked>
+        W2
+      </label>
+    </div>
+  
+    <div class="radio">
+        <label>
+          <input type="radio" name="paymentType" value="1099" [(ngModel)]="quote.paymentType">
+          1099
+        </label>
+    </div>
+    
+    <div class="form-group">
+        <label for="FirstName">Primary Language</label>
+        <select class="form-control" name="primaryLanguage" [(ngModel)]="quote.primaryLanguage">
+          <option *ngFor="let lang of languages">{{lang}}</option>
+        </select>
+    </div>
+  
+    <div class="form-group">
+      <div class="input-group">
+        <input class="form-control" placeholder="yyyy-mm-dd"
+               name="effDate" [(ngModel)]="eff" ngbDatepicker #effDate="ngbDatepicker">
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary calendar" (click)="effDate.toggle()" type="button"></button>
+        </div>
       </div>
     </div>
+  
+    <button class="btn btn-primary" type="submit">OK</button>           -->
+  
+  </form>
+  
+
+  <div class="row">
+
+    <div class="col-sm-12 col-md-6 col-lg-3">
+      One of columns
+    </div>
+
+    <div class="col-sm-12  col-md-6 col-lg-3">
+      One of columns
+    </div>
+
+    <div class="col-sm-12  col-md-6 col-lg-3">
+      One of columns
+    </div>
+
+    <div class="col-sm-12  col-md-6 col-lg-3">
+      One of columns
+    </div>
+
   </div>
 
-  <button class="btn btn-primary" type="submit">OK</button>           -->
 
-</form>
-
-
+  
 <!-- 
 <hr/>
 
@@ -65,10 +87,6 @@
 <P>Angular: {{form.value | json}}</P>
 
 <P>Classes: {{firstName.className }}</P> -->
-
-
-
-
 
 
 <button class="btn btn-primary" (click)='getData()'>
