@@ -13,6 +13,7 @@ import { HomeComponent } from './home/home.component';
 import { ProductDetailGuard } from './products/product-detail.guard';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { QuoteComponent } from './quote/quote.component';
+import { SignupComponent } from './signup/signup.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { QuoteComponent } from './quote/quote.component';
     StarComponent,
     ProductDetailComponent,
     HomeComponent,
-    QuoteComponent
+    QuoteComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
@@ -36,6 +38,7 @@ import { QuoteComponent } from './quote/quote.component';
       { path: 'products/:id', 
         canActivate: [ProductDetailGuard],
         component: ProductDetailComponent },
+      { path: 'signup', component: SignupComponent },
       { path: 'home', component: HomeComponent },
       { path: '', redirectTo: 'home', pathMatch: 'full'},
       { path: '**', redirectTo: 'home', pathMatch: 'full'}
