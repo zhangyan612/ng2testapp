@@ -2,7 +2,7 @@
 <form #form='ngForm' novalidate>
 
     <div class="form-group">
-      <label class="col-form-label-sm" for="FirstName">First Name</label>
+      <label class="col-form-label-sm" for="FirstName">Run query</label>
       <input #firstName class="form-control form-control-sm" type="text" placeholder="FirstName" name="FirstName"
         [ngModel]="quote.firstName" (ngModelChange)="toUpperCase($event)">
       <div class=""></div>
@@ -56,7 +56,7 @@
   
   </form>
   
-
+<!-- 
   <div class="row">
 
     <div class="col-sm-12 col-md-6 col-lg-3">
@@ -75,7 +75,7 @@
       One of columns
     </div>
 
-  </div>
+  </div> -->
 
 
   
@@ -93,4 +93,4 @@
     Get Data
 </button>
 
-<pre>Model: {{ quote | json }}</pre>
+<pre>Model: {{ product | json }}</pre>
