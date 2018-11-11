@@ -23,6 +23,8 @@ import { RadiobuttonComponent } from './dynamic-bootstrap/radiobutton/radiobutto
 import { CheckboxComponent } from './dynamic-bootstrap/checkbox/checkbox.component';
 import { DynamicFieldDirective } from './dynamic-bootstrap/dynamic-field/dynamic-field.directive';
 import { DynamicFormComponent } from './dynamic-bootstrap/dynamic-form/dynamic-form.component';
+import { DesignerComponent } from './designer/designer.component';
+import { DragulaModule } from 'ng2-dragula';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,8 @@ import { DynamicFormComponent } from './dynamic-bootstrap/dynamic-form/dynamic-f
     RadiobuttonComponent,
     CheckboxComponent,
     DynamicFieldDirective,
-    DynamicFormComponent
+    DynamicFormComponent,
+    DesignerComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +53,9 @@ import { DynamicFormComponent } from './dynamic-bootstrap/dynamic-form/dynamic-f
     ReactiveFormsModule,
     HttpClientModule,
     NgbModule,
+    DragulaModule.forRoot(),
     RouterModule.forRoot([
+      { path: 'designer', component: DesignerComponent },
       { path: 'sql', component: SqlComponent },
       { path: 'quote', component: QuoteComponent },
       { path: 'products', component: ProductListComponent },
