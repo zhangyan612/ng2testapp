@@ -94,3 +94,10 @@
 </button>
 
 <pre>Model: {{ product | json }}</pre>
+
+
+<dynamic-form [fields]="regConfig" (submit)="submit($event)">
+</dynamic-form>
+<div class="margin-top">
+  {{ form.value | json }}
+</div>

@@ -1,0 +1,17 @@
+<div class="form-group" [formGroup]="group">
+    <div class="input-group">
+        <label>{{field.label}}</label>
+
+
+        <input class="form-control" placeholder="yyyy-mm-dd"
+            [formControlName]="field.name" ngbDatepicker #d="ngbDatepicker">
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"></button>
+        </div>
+        <span class="invalid-feedback" *ngFor="let validation of field.validations;" ngProjectAs="error">
+            <span *ngIf="group.get(field.name).hasError(validation.name)">
+            {{validation.message}}
+            </span>
+        </span>
+    </div>
+</div>

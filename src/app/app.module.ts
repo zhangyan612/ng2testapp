@@ -15,6 +15,14 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { QuoteComponent } from './quote/quote.component';
 import { SignupComponent } from './signup/signup.component';
 import { SqlComponent } from './sql/sql.component';
+import { InputComponent } from './dynamic-bootstrap/input/input.component';
+import { ButtonComponent } from './dynamic-bootstrap/button/button.component';
+import { SelectComponent } from './dynamic-bootstrap/select/select.component';
+import { DateComponent } from './dynamic-bootstrap/date/date.component';
+import { RadiobuttonComponent } from './dynamic-bootstrap/radiobutton/radiobutton.component';
+import { CheckboxComponent } from './dynamic-bootstrap/checkbox/checkbox.component';
+import { DynamicFieldDirective } from './dynamic-bootstrap/dynamic-field/dynamic-field.directive';
+import { DynamicFormComponent } from './dynamic-bootstrap/dynamic-form/dynamic-form.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +34,15 @@ import { SqlComponent } from './sql/sql.component';
     HomeComponent,
     QuoteComponent,
     SignupComponent,
-    SqlComponent
+    SqlComponent,
+    InputComponent,
+    ButtonComponent,
+    SelectComponent,
+    DateComponent,
+    RadiobuttonComponent,
+    CheckboxComponent,
+    DynamicFieldDirective,
+    DynamicFormComponent
   ],
   imports: [
     BrowserModule,
@@ -48,6 +64,14 @@ import { SqlComponent } from './sql/sql.component';
     ])
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    InputComponent,
+    ButtonComponent,
+    SelectComponent,
+    DateComponent,
+    RadiobuttonComponent,
+    CheckboxComponent
+  ]
 })
 export class AppModule { }
