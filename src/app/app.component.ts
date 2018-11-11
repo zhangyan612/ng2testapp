@@ -6,6 +6,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'testapp';
-  pageTitle : string = "test";
+  title = 'Form App';
+  logoTxt : string = "Form App";
+  links = [
+    { text: 'Quote', path: '/quote' },
+    { text: 'Product List', path: '/products' },    
+    { text: 'Run SQL', path: '/sql' },
+    { text: 'Designer', path: '/designer' }
+  ]
+  
 }
