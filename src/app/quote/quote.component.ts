@@ -49,14 +49,14 @@ export class QuoteComponent implements OnInit {
   regConfig: FieldConfig[] = [
     {
       type: "input",
-      label: "Username",
+      label: "First Name",
       inputType: "text",
-      name: "name",
+      name: "firstName",
       validations: [
         {
           name: "required",
           validator: Validators.required,
-          message: "Name Required"
+          message: "First Name Required"
         },
         {
           name: "pattern",
@@ -67,14 +67,14 @@ export class QuoteComponent implements OnInit {
     },
     {
       type: "input",
-      label: "FirstName",
+      label: "Last Name",
       inputType: "text",
-      name: "firstname",
+      name: "lastName",
       validations: [
         {
           name: "required",
           validator: Validators.required,
-          message: "Name Required"
+          message: "Last Name is Required"
         },
         {
           name: "pattern",
@@ -168,7 +168,11 @@ export class QuoteComponent implements OnInit {
     //   error => this.errorMessage = <any>error
     // );
   }
-  
+  submit(value: any) {
+
+    console.log(value);
+  }
+
   save() {
     // console.log(this.customerForm);
     // console.log('Saved: ' + JSON.stringify(this.customerForm.value));

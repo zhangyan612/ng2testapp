@@ -14,5 +14,4 @@ export class AppComponent {
     { text: 'Run SQL', path: '/sql' },
     { text: 'Designer', path: '/designer' }
   ]
-  
 }
