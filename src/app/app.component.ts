@@ -12,6 +12,7 @@ export class AppComponent {
     { text: 'Quote', path: '/quote' },
     { text: 'Product List', path: '/products' },    
     { text: 'Run SQL', path: '/sql' },
-    { text: 'Designer', path: '/designer' }
+    { text: 'Designer', path: '/designer' },
+    { text: 'Data Grid', path: '/datagrid' }
   ]
 }

@@ -26,6 +26,7 @@ import { DynamicFormComponent } from './dynamic-bootstrap/dynamic-form/dynamic-f
 import { DesignerComponent } from './designer/designer.component';
 import { DragulaModule } from 'ng2-dragula';
 import { AgGridModule } from 'ag-grid-angular';
+import { DataGridComponent } from './data-grid/data-grid.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { AgGridModule } from 'ag-grid-angular';
     CheckboxComponent,
     DynamicFieldDirective,
     DynamicFormComponent,
-    DesignerComponent
+    DesignerComponent,
+    DataGridComponent
   ],
   imports: [
     BrowserModule,
@@ -57,6 +59,7 @@ import { AgGridModule } from 'ag-grid-angular';
     AgGridModule.withComponents([]),
     DragulaModule.forRoot(),
     RouterModule.forRoot([
+      { path: 'datagrid', component: DataGridComponent },
       { path: 'designer', component: DesignerComponent },
       { path: 'sql', component: SqlComponent },
       { path: 'quote', component: QuoteComponent },

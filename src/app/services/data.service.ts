@@ -23,6 +23,13 @@ export class DataService {
     );
   }
 
+  getExternal(url: string): Observable<any[]> {
+    return this.http.get<any[]>(url).pipe(
+        tap(data => console.log('server returns: '+ JSON.stringify(data))),
+        catchError(this.handleError)
+    );
+  }
+
   getById(url: string, id: number): Observable<any> {
     let params = new HttpParams().set("productId", id.toString());
     
