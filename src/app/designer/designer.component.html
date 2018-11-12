@@ -1,9 +1,29 @@
-<div class='container' dragula="PERSON" id="left" [(dragulaModel)]="left">
-  <div *ngFor="let person of left">{{person | json}}</div>
+
+
+<div class="row">
+  <div class="col-4">
+    
+    <div class='container' dragula="PERSON" id="left" [(dragulaModel)]="left">
+      <div *ngFor="let person of left">{{person | json}}</div>
+    </div>
+  
+  </div>
+  <div class="col-4">
+    
+    <div class='container' dragula="PERSON" id="right" [(dragulaModel)]="right">
+      <div *ngFor="let person of right">{{person | json}}</div>
+    </div>
+  
+  </div>
+  <div class="col-4">
+    
+  
+  </div>
 </div>
-<div class='container' dragula="PERSON" id="right" [(dragulaModel)]="right">
-  <div *ngFor="let person of right">{{person | json}}</div>
-</div>
+
+
+
+
 
 <ul dragula="VAMPIRES">
   <li>Dracula</li>
@@ -49,7 +69,7 @@
 
 <p>Nested component</p>
 
-
+<!-- 
 <div class="parent">
   <label for="hy">
     <strong>Angular-specific example.</strong>
@@ -63,5 +83,5 @@
       </div>
     </div>
   </div>
-  <!-- <pre><code>{{ code }}</code></pre> -->
-</div>
+   <pre><code>{{ code }}</code></pre>
+</div> -->

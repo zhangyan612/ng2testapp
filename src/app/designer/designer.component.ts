@@ -72,6 +72,11 @@ export class DesignerComponent implements OnInit {
     });
   }
 
+
+
+
+
+  
   public groups:Array<any> = [
     {
       name: 'Group A',
@@ -85,7 +90,6 @@ export class DesignerComponent implements OnInit {
       name: 'Group C',
       items: [{name: 'Item C'}, {name: 'normal'}, {name: 'Item 3'}, {name: 'Item 4'}]
     }
-
   ];
 
 

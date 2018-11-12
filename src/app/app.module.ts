@@ -25,6 +25,7 @@ import { DynamicFieldDirective } from './dynamic-bootstrap/dynamic-field/dynamic
 import { DynamicFormComponent } from './dynamic-bootstrap/dynamic-form/dynamic-form.component';
 import { DesignerComponent } from './designer/designer.component';
 import { DragulaModule } from 'ng2-dragula';
+import { AgGridModule } from 'ag-grid-angular';
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { DragulaModule } from 'ng2-dragula';
     ReactiveFormsModule,
     HttpClientModule,
     NgbModule,
+    AgGridModule.withComponents([]),
     DragulaModule.forRoot(),
     RouterModule.forRoot([
       { path: 'designer', component: DesignerComponent },

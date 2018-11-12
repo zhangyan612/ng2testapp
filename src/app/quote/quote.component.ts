@@ -139,8 +139,8 @@ export class QuoteComponent implements OnInit {
       type: "select",
       label: "Country",
       name: "country",
-      value: "UK",
-      options: ["India", "UAE", "UK", "US"]
+      value: "US",
+      options: ["US", "Canada", "UK", "China"]
     },
     {
       type: "checkbox",
@@ -169,12 +169,13 @@ export class QuoteComponent implements OnInit {
     // );
   }
   submit(value: any) {
-
+    console.log(this.form);
+    console.log(this.form.value);
     console.log(value);
   }
 
   save() {
-    // console.log(this.customerForm);
+    console.log(this.form);
     // console.log('Saved: ' + JSON.stringify(this.customerForm.value));
   }
 
