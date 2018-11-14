@@ -1,75 +1,75 @@
 
+<div class="flex">
 
-<div class="row">
-  <div class="col-4">
+
+  <div class="container" id="left" dragula="formBuilder" [(dragulaModel)]="availables">
+
+    <div class="vamp" *ngFor="let item of availables">
+      
+        <button class="btn btn-squared-default btn-default">
+            <i [ngClass]="item.icon"></i>
+            {{ item.label }}
+        </button>
+
+    </div>
+  </div>
+
+
+
+
+  <div class="container" id="right" dragula="formBuilder" [(dragulaModel)]="generated">
+    <div class="vamp" *ngFor="let item of generated" [innerHtml]="item.label | safeHtml" (click)='onclick(item)'></div>
+  </div>
+
+
+
+  <div class="container" >
+
+      <ngb-tabset>
+          <ngb-tab title="Options">
+            <ng-template ngbTabContent>
+            
+              {{currentElement | json}}
+
+              <div class="form-group" *ngIf='currentElement'>
+                <label for="exampleFormControlInput1">Field Label</label>
+                <input type="text" class="form-control" [(ngModel)]="currentElement.label">
+              </div>
+              <div class="form-group">
+                <label for="exampleFormControlSelect1">Example select</label>
+                <select class="form-control">
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                </select>
+              </div>
+              
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab>
+            <ng-template ngbTabTitle>Custom</ng-template>
+            <ng-template ngbTabContent>
+              Some Custom class or attach code
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab title="More" [disabled]="true">
+            <ng-template ngbTabContent>
+
+            </ng-template>
+          </ngb-tab>
+        </ngb-tabset>
+        
     
-    <div class='container' dragula="PERSON" id="left" [(dragulaModel)]="left">
-      <div *ngFor="let person of left">{{person | json}}</div>
-    </div>
+  </div>
   
-  </div>
-  <div class="col-4">
-    
-    <div class='container' dragula="PERSON" id="right" [(dragulaModel)]="right">
-      <div *ngFor="let person of right">{{person | json}}</div>
-    </div>
-  
-  </div>
-  <div class="col-4">
-    
-  
-  </div>
 </div>
 
 
-
-
-
-<ul dragula="VAMPIRES">
-  <li>Dracula</li>
-  <li>Kurz</li>
-  <li>Vladislav</li>
-  <li>Deacon</li>
-</ul>
-
-
-<div>
-  <div class="wrapper">
-    <div class="container" dragula="DRAGULA_FACTS">
-      <div>You can move these elements between these two containers</div>
-      <div>Moving them anywhere else isn't quite possible</div>
-      <div>There's also the possibility of moving elements around in the same container, changing their position</div>
-    </div>
-    <div class="container" dragula="DRAGULA_FACTS">
-      <div>This is the default use case. You only need to specify the containers you want to use</div>
-      <div>More interactive use cases lie ahead</div>
-      <div>Make sure to check out the <a href="https://github.com/bevacqua/dragula#readme">documentation on GitHub!</a></div>
-    </div>
-  </div>
-</div>
-
-
-
-<div dragula="VAMPIRES">
-  <div>test 1</div>
-</div>
-<div dragula="VAMPIRES">
-  <div>test 2</div>
-</div>
-
-<div dragula="ZOMBIES">
-  <div>test 3</div>
-</div>
-
-
-
-<div dragula="DRAGULA_EVENTS"> ... </div>
-<div dragula="DRAGULA_EVENTS"> ... </div>
-
-
-<p>Nested component</p>
 
 <!-- 
+<p>Nested component</p>
 <div class="parent">
   <label for="hy">
     <strong>Angular-specific example.</strong>

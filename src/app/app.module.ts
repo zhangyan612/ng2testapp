@@ -27,6 +27,7 @@ import { DesignerComponent } from './designer/designer.component';
 import { DragulaModule } from 'ng2-dragula';
 import { AgGridModule } from 'ag-grid-angular';
 import { DataGridComponent } from './data-grid/data-grid.component';
+import { SafeHtmlPipe } from './shared/safe-html.pipe';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { DataGridComponent } from './data-grid/data-grid.component';
     DynamicFieldDirective,
     DynamicFormComponent,
     DesignerComponent,
-    DataGridComponent
+    DataGridComponent,
+    SafeHtmlPipe
   ],
   imports: [
     BrowserModule,
