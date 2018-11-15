@@ -68,7 +68,7 @@
 
   <div class="col-8 col-md-6" style="border: 1px solid grey;">
 
-    <!-- <dynamic-form [fields]="regConfig" (submit)="submit($event)">
+    <!-- <dynamic-form [fields]="fields" (submit)="submit($event)" (elementOnClick)='loadField(f)'>
     </dynamic-form> -->
 
   <form class="dynamic-form" dragula="dynamicForm" [formGroup]="form" (submit)="onSubmit($event)">

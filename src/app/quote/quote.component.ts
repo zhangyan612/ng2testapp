@@ -51,118 +51,6 @@ export class QuoteComponent implements OnInit {
 
   regConfig: FieldConfig[] = quoteFields;
   
-  // regConfig: FieldConfig[] = [
-  //   {
-  //     type: "input",
-  //     label: "First Name",
-  //     inputType: "text",
-  //     name: "firstName",
-  //     placeholder:"",
-  //     validations: [
-  //       {
-  //         name: "required",
-  //         validator: Validators.required,
-  //         message: "First Name Required"
-  //       },
-  //       {
-  //         name: "pattern",
-  //         validator: Validators.pattern("^[a-zA-Z]+$"),
-  //         message: "Accept only text"
-  //       }
-  //     ]
-  //   },
-  //   {
-  //     type: "input",
-  //     label: "Last Name",
-  //     inputType: "text",
-  //     name: "lastName",
-  //     placeholder:"",
-  //     validations: [
-  //       {
-  //         name: "required",
-  //         validator: Validators.required,
-  //         message: "Last Name is Required"
-  //       },
-  //       {
-  //         name: "pattern",
-  //         validator: Validators.pattern("^[a-zA-Z]+$"),
-  //         message: "Accept only text"
-  //       }
-  //     ]
-  //   },
-  //   {
-  //     type: "input",
-  //     label: "Email Address",
-  //     inputType: "email",
-  //     name: "email",
-  //     placeholder:"",
-  //     validations: [
-  //       {
-  //         name: "required",
-  //         validator: Validators.required,
-  //         message: "Email Required"
-  //       },
-  //       {
-  //         name: "pattern",
-  //         validator: Validators.pattern(
-  //           "^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$"
-  //         ),
-  //         message: "Invalid email"
-  //       }
-  //     ]
-  //   },
-  //   {
-  //     type: "input",
-  //     label: "Password",
-  //     inputType: "password",
-  //     name: "password",
-  //     placeholder:"",
-  //     validations: [
-  //       {
-  //         name: "required",
-  //         validator: Validators.required,
-  //         message: "Password Required"
-  //       }
-  //     ]
-  //   },
-  //   {
-  //     type: "radiobutton",
-  //     label: "Gender",
-  //     name: "gender",
-  //     options: ["Male", "Female"],
-  //     value: "Male"
-  //   },
-  //   {
-  //     type: "date",
-  //     label: "DOB",
-  //     name: "dob",
-  //     placeholder:"",
-  //     validations: [
-  //       {
-  //         name: "required",
-  //         validator: Validators.required,
-  //         message: "Date of Birth Required"
-  //       }
-  //     ]
-  //   },
-  //   {
-  //     type: "select",
-  //     label: "Country",
-  //     name: "country",
-  //     value: "US",
-  //     options: ["US", "Canada", "UK", "China"]
-  //   },
-  //   {
-  //     type: "checkbox",
-  //     label: "Accept Terms",
-  //     name: "term",
-  //     value: true
-  //   },
-  //   {
-  //     type: "button",
-  //     label: "Save"
-  //   }
-  // ];
 
   ngOnInit() {
     // this.customerForm.get('notification').valueChanges.subscribe(
@@ -178,6 +66,7 @@ export class QuoteComponent implements OnInit {
     //   error => this.errorMessage = <any>error
     // );
   }
+
   submit(value: any) {
     console.log(this.form);
     console.log(this.form.value);
@@ -187,6 +76,22 @@ export class QuoteComponent implements OnInit {
   save() {
     console.log(this.form);
     // console.log('Saved: ' + JSON.stringify(this.customerForm.value));
+  }
+
+  addTextField(id: number): void {
+    let config = quoteFields[id];
+    // config.name= config.name+elementId;
+    console.log(this.form);
+
+    console.log(config);
+
+    // const control = this.fb.control(
+    //   config,
+    //   this.bindValidations(config.validations || [])
+    // );
+    // this.form.addControl(config.name, control);
+    
+    this.regConfig.push(config);
   }
 
   addConfig(data: FieldConfig[] ) {

@@ -112,7 +112,7 @@ export const availableFields: FieldConfig[] = [
         label: "Text",
         inputType: "text",
         name: "firstText",
-        placeholder:"Text",
+        placeholder:"",
         validations: []
     },
     {

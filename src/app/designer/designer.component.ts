@@ -47,11 +47,17 @@ export class DesignerComponent implements OnInit {
   fields: FieldConfig[] = [
     {
       type: "input",
-      label: "Sample Input",
+      label: "Sample Text",
       inputType: "text",
       name: "sample",
-      placeholder:"sample",
-      validations: []
+      placeholder:"please input text",
+      validations: [
+        {
+          name: "required",
+          validator: Validators.required,
+          message: "Text Required"
+        }
+      ]
     }
   ];
 
@@ -60,13 +66,7 @@ export class DesignerComponent implements OnInit {
   get value() {
     return this.form.value;
   }
-  // availables = [
-  //   {
-  //     id: 1,
-  //     lebal: 'text',
-  //     icon: 'fa-text-width'
-  //   }
-  // ]
+
   availables = [
     new WebElement(0,'Title', '<b>{{args.lebal}}</b>','fa-text-width', {lebal: 'test title'}),  //[new ElementProperty('lebal', 'test title')]
     new WebElement(1, 'Text Field', '<div class="form-group"> <label for="textfield">New Field</label> <input type="text" class="form-control" id="textfield" placeholder="some text"> </div>', 'fa-pencil-square-o', {lebal: 'test title'}),
@@ -138,17 +138,35 @@ export class DesignerComponent implements OnInit {
 
 
   addTextField(id: number): void {
-    let config = availableFields[id];
-    config.name= config.name+elementId;
+    //let config = availableFields[id];
+    // config.name= config.name+elementId;
+    let config = {
+      type: "input",
+      label: "First Name",
+      inputType: "text",
+      name: "sample",
+      validations: [
+        {
+          name: "required",
+          validator: Validators.required,
+          message: "First Name Required"
+        }
+      ]
+    }
+
+    //console.log(this.form);
 
     console.log(config);
 
-    const control = this.fb.control(
-      config,
-      this.bindValidations(config.validations || [])
-    );
-    this.form.addControl(config.name, control);
+    // const control = this.fb.control(
+    //   config,
+    //   this.bindValidations(config.validations || [])
+    // );
+    // this.form.addControl(config.name, control);
+
     this.fields.push(config);
+
+    console.log(this.form);
 
     elementId++;
   }

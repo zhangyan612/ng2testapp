@@ -15,12 +15,13 @@ import {
 import { FieldConfig } from "../fields.interface";
 import { DragulaService } from "ng2-dragula";
 import { Subscription } from 'rxjs';
+import { fieldsConfig } from "src/app/shared/fields-config";
 
 @Component({
   exportAs: "dynamicForm",
   selector: "dynamic-form",
   templateUrl: './dynamic-form.component.html',
-  styles: []
+  styles: ['./dynamic-form.component.css']
 })
 export class DynamicFormComponent implements OnInit {
   @Input() fields: FieldConfig[] = [];
@@ -91,4 +92,5 @@ export class DynamicFormComponent implements OnInit {
       control.markAsTouched({ onlySelf: true });
     });
   }
+
 }
