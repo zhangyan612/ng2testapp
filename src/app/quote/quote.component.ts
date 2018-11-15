@@ -100,7 +100,7 @@ export class QuoteComponent implements OnInit {
       type: "input",
       label: "First Name",
       inputType: "text",
-      name: "firstName",
+      name: "newname", //not working
       validations: [
         {
           name: "required",

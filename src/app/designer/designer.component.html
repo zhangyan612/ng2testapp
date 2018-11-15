@@ -71,7 +71,7 @@
     <!-- <dynamic-form [fields]="fields" (submit)="submit($event)" (elementOnClick)='loadField(f)'>
     </dynamic-form> -->
 
-  <form class="dynamic-form" dragula="dynamicForm" [formGroup]="form" (submit)="onSubmit($event)">
+  <form class="dynamic-form" [formGroup]="form" (submit)="onSubmit($event)">
       <div class="designElement" *ngFor="let f of fields" dynamicField [field]="f" [group]="form" (click)='loadField(f)'>
       </div>
   </form>
