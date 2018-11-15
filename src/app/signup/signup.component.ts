@@ -150,4 +150,8 @@ export class SignupComponent implements OnInit {
       this.quote.firstName = value;
     }
   }
+
+  onElement(){
+    console.log('element clicked')
+  }
 }

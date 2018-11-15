@@ -40,3 +40,12 @@
   }
   
   a:link, a:visited, a:hover, a:active { color: lightblue; }
+
+
+  .designElement{
+    height: 20px;
+    width: 20px;
+    float: right;
+    margin-top: 5px;
+    background-image: url("../../assets/edit-icon.png");
+  }

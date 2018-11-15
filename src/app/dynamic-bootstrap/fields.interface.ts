@@ -7,6 +7,7 @@ export interface Validator {
     label?: string;
     name?: string;
     inputType?: string;
+    placeholder?: string;
     options?: string[];
     collections?: any;
     type: string;

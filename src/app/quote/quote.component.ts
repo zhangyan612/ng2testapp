@@ -6,6 +6,7 @@ import { Customer } from '../model/customer';
 import { debounceTime } from 'rxjs/operators';
 import { DynamicFormComponent } from '../dynamic-bootstrap/dynamic-form/dynamic-form.component';
 import { FieldConfig } from "../dynamic-bootstrap/fields.interface";
+import { quoteFields } from '../shared/fields-config';
 
 function emailMatcher(c: AbstractControl): { [key: string]: boolean } | null {
   const emailControl = c.get('email');
@@ -44,115 +45,124 @@ export class QuoteComponent implements OnInit {
 
   emailMessage: string;
 
-  constructor(private dataService: DataService, private fb: FormBuilder) { }
+  constructor(private dataService: DataService, private fb: FormBuilder) {
 
-  regConfig: FieldConfig[] = [
-    {
-      type: "input",
-      label: "First Name",
-      inputType: "text",
-      name: "firstName",
-      validations: [
-        {
-          name: "required",
-          validator: Validators.required,
-          message: "First Name Required"
-        },
-        {
-          name: "pattern",
-          validator: Validators.pattern("^[a-zA-Z]+$"),
-          message: "Accept only text"
-        }
-      ]
-    },
-    {
-      type: "input",
-      label: "Last Name",
-      inputType: "text",
-      name: "lastName",
-      validations: [
-        {
-          name: "required",
-          validator: Validators.required,
-          message: "Last Name is Required"
-        },
-        {
-          name: "pattern",
-          validator: Validators.pattern("^[a-zA-Z]+$"),
-          message: "Accept only text"
-        }
-      ]
-    },
-    {
-      type: "input",
-      label: "Email Address",
-      inputType: "email",
-      name: "email",
-      validations: [
-        {
-          name: "required",
-          validator: Validators.required,
-          message: "Email Required"
-        },
-        {
-          name: "pattern",
-          validator: Validators.pattern(
-            "^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$"
-          ),
-          message: "Invalid email"
-        }
-      ]
-    },
-    {
-      type: "input",
-      label: "Password",
-      inputType: "password",
-      name: "password",
-      validations: [
-        {
-          name: "required",
-          validator: Validators.required,
-          message: "Password Required"
-        }
-      ]
-    },
-    {
-      type: "radiobutton",
-      label: "Gender",
-      name: "gender",
-      options: ["Male", "Female"],
-      value: "Male"
-    },
-    {
-      type: "date",
-      label: "DOB",
-      name: "dob",
-      validations: [
-        {
-          name: "required",
-          validator: Validators.required,
-          message: "Date of Birth Required"
-        }
-      ]
-    },
-    {
-      type: "select",
-      label: "Country",
-      name: "country",
-      value: "US",
-      options: ["US", "Canada", "UK", "China"]
-    },
-    {
-      type: "checkbox",
-      label: "Accept Terms",
-      name: "term",
-      value: true
-    },
-    {
-      type: "button",
-      label: "Save"
-    }
-  ];
+  }
+
+  regConfig: FieldConfig[] = quoteFields;
+  
+  // regConfig: FieldConfig[] = [
+  //   {
+  //     type: "input",
+  //     label: "First Name",
+  //     inputType: "text",
+  //     name: "firstName",
+  //     placeholder:"",
+  //     validations: [
+  //       {
+  //         name: "required",
+  //         validator: Validators.required,
+  //         message: "First Name Required"
+  //       },
+  //       {
+  //         name: "pattern",
+  //         validator: Validators.pattern("^[a-zA-Z]+$"),
+  //         message: "Accept only text"
+  //       }
+  //     ]
+  //   },
+  //   {
+  //     type: "input",
+  //     label: "Last Name",
+  //     inputType: "text",
+  //     name: "lastName",
+  //     placeholder:"",
+  //     validations: [
+  //       {
+  //         name: "required",
+  //         validator: Validators.required,
+  //         message: "Last Name is Required"
+  //       },
+  //       {
+  //         name: "pattern",
+  //         validator: Validators.pattern("^[a-zA-Z]+$"),
+  //         message: "Accept only text"
+  //       }
+  //     ]
+  //   },
+  //   {
+  //     type: "input",
+  //     label: "Email Address",
+  //     inputType: "email",
+  //     name: "email",
+  //     placeholder:"",
+  //     validations: [
+  //       {
+  //         name: "required",
+  //         validator: Validators.required,
+  //         message: "Email Required"
+  //       },
+  //       {
+  //         name: "pattern",
+  //         validator: Validators.pattern(
+  //           "^[a-z0-9._%+-]+@[a-z0-9.-]+.[a-z]{2,4}$"
+  //         ),
+  //         message: "Invalid email"
+  //       }
+  //     ]
+  //   },
+  //   {
+  //     type: "input",
+  //     label: "Password",
+  //     inputType: "password",
+  //     name: "password",
+  //     placeholder:"",
+  //     validations: [
+  //       {
+  //         name: "required",
+  //         validator: Validators.required,
+  //         message: "Password Required"
+  //       }
+  //     ]
+  //   },
+  //   {
+  //     type: "radiobutton",
+  //     label: "Gender",
+  //     name: "gender",
+  //     options: ["Male", "Female"],
+  //     value: "Male"
+  //   },
+  //   {
+  //     type: "date",
+  //     label: "DOB",
+  //     name: "dob",
+  //     placeholder:"",
+  //     validations: [
+  //       {
+  //         name: "required",
+  //         validator: Validators.required,
+  //         message: "Date of Birth Required"
+  //       }
+  //     ]
+  //   },
+  //   {
+  //     type: "select",
+  //     label: "Country",
+  //     name: "country",
+  //     value: "US",
+  //     options: ["US", "Canada", "UK", "China"]
+  //   },
+  //   {
+  //     type: "checkbox",
+  //     label: "Accept Terms",
+  //     name: "term",
+  //     value: true
+  //   },
+  //   {
+  //     type: "button",
+  //     label: "Save"
+  //   }
+  // ];
 
   ngOnInit() {
     // this.customerForm.get('notification').valueChanges.subscribe(
@@ -177,6 +187,35 @@ export class QuoteComponent implements OnInit {
   save() {
     console.log(this.form);
     // console.log('Saved: ' + JSON.stringify(this.customerForm.value));
+  }
+
+  addConfig(data: FieldConfig[] ) {
+
+    let additional = {
+      type: "input",
+      label: "First Name",
+      inputType: "text",
+      name: "firstName",
+      validations: [
+        {
+          name: "required",
+          validator: Validators.required,
+          message: "First Name Required"
+        },
+        {
+          name: "pattern",
+          validator: Validators.pattern("^[a-zA-Z]+$"),
+          message: "Accept only text"
+        }
+      ]
+    }
+
+    this.regConfig.push(additional);
+
+  }
+
+  printCurrent(){
+    console.log(this.regConfig);
   }
 
 }

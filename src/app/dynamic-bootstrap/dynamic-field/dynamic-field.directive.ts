@@ -4,7 +4,10 @@ import {
   Directive,
   Input,
   OnInit,
-  ViewContainerRef
+  ViewContainerRef,
+  Output,
+  EventEmitter,
+  HostListener
 } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { FieldConfig } from "../fields.interface";
@@ -29,6 +32,7 @@ const componentMapper = {
 export class DynamicFieldDirective implements OnInit {
   @Input() field: FieldConfig;
   @Input() group: FormGroup;
+  @Output() elementClicked: EventEmitter<any> = new EventEmitter<any>();
   componentRef: any;
   constructor(
     private resolver: ComponentFactoryResolver,
@@ -42,4 +46,10 @@ export class DynamicFieldDirective implements OnInit {
     this.componentRef.instance.field = this.field;
     this.componentRef.instance.group = this.group;
   }
+
+  @HostListener('click',['$event']) onclick($event) {
+    //debugger;
+    this.elementClicked.emit(this.field);
+  }
+
 }

@@ -1,71 +1,32 @@
-
+<!-- 
 <div class="flex">
 
 
   <div class="container" id="left" dragula="formBuilder" [(dragulaModel)]="availables">
 
     <div class="vamp" *ngFor="let item of availables">
-      
         <button class="btn btn-squared-default btn-default">
             <i [ngClass]="item.icon"></i>
             {{ item.label }}
         </button>
-
     </div>
   </div>
 
-
-
-
   <div class="container" id="right" dragula="formBuilder" [(dragulaModel)]="generated">
     <div class="vamp" *ngFor="let item of generated" [innerHtml]="item.label | safeHtml" (click)='onclick(item)'></div>
-  </div>
+  </div> 
 
-
+  <form class="dynamic-form" dragula="formBuilder" [formGroup]="form" [(dragulaModel)]="generated">
+    <ng-container *ngFor="let field of generated" dynamicField [field]="field" [group]="form">
+    </ng-container>
+  </form>
+      
 
   <div class="container" >
-
-      <ngb-tabset>
-          <ngb-tab title="Options">
-            <ng-template ngbTabContent>
-            
-              {{currentElement | json}}
-
-              <div class="form-group" *ngIf='currentElement'>
-                <label for="exampleFormControlInput1">Field Label</label>
-                <input type="text" class="form-control" [(ngModel)]="currentElement.label">
-              </div>
-              <div class="form-group">
-                <label for="exampleFormControlSelect1">Example select</label>
-                <select class="form-control">
-                  <option>1</option>
-                  <option>2</option>
-                  <option>3</option>
-                  <option>4</option>
-                  <option>5</option>
-                </select>
-              </div>
-              
-            </ng-template>
-          </ngb-tab>
-          <ngb-tab>
-            <ng-template ngbTabTitle>Custom</ng-template>
-            <ng-template ngbTabContent>
-              Some Custom class or attach code
-            </ng-template>
-          </ngb-tab>
-          <ngb-tab title="More" [disabled]="true">
-            <ng-template ngbTabContent>
-
-            </ng-template>
-          </ngb-tab>
-        </ngb-tabset>
-        
     
   </div>
   
-</div>
-
+</div> -->
 
 
 <!-- 
@@ -85,3 +46,100 @@
   </div>
    <pre><code>{{ code }}</code></pre>
 </div> -->
+
+<div class="row">
+  <h3>Form Designer <span *ngIf="formName">: {{formName}}</span></h3>
+</div>
+
+<div class="row">
+  <div class="col-4 col-md-3" style="border: 1px solid grey;">
+
+    <div dragula="formBuilder" [(dragulaModel)]="availables">
+      <div class="vamp" *ngFor="let item of availables">
+          <button class="btn btn-squared-default btn-default" (click)='addTextField(item.id)'>
+              <i [ngClass]="item.icon"></i>
+              {{ item.name }}
+          </button>
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="col-8 col-md-6" style="border: 1px solid grey;">
+
+    <!-- <dynamic-form [fields]="regConfig" (submit)="submit($event)">
+    </dynamic-form> -->
+
+  <form class="dynamic-form" dragula="dynamicForm" [formGroup]="form" (submit)="onSubmit($event)">
+      <div class="designElement" *ngFor="let f of fields" dynamicField [field]="f" [group]="form" (click)='loadField(f)'>
+      </div>
+  </form>
+    
+  </div>
+
+
+  <div class="col-4 col-md-3" style="border: 1px solid grey;">
+  
+    <ngb-tabset>
+      <ngb-tab title="Options">
+        <ng-template ngbTabContent>
+        
+          {{selected | json}}
+
+          <div *ngIf='selected'>
+            <div class="form-group" *ngIf='selected.name'>
+              <label for="exampleFormControlInput1">Field Name</label>
+              <input type="text" class="form-control" [(ngModel)]="selected.name">
+            </div>
+    
+            <div class="form-group" >
+              <label for="exampleFormControlInput1">Field Label</label>
+              <input type="text" class="form-control" [(ngModel)]="selected.label">
+            </div>
+
+            <div class="form-group">
+              <label for="exampleFormControlInput1">Input Type</label>
+              <select class="form-control" [(ngModel)]="selected.inputType"> 
+                <option value="text">Text</option>
+                <option value="number">Number</option>
+                <option value="tel">Phone</option>
+                <option>password</option>
+                <option>email</option>
+                <option>time</option>
+                <option>datetime-local</option>
+              </select>
+            </div>
+
+            <div class="form-group" *ngIf='selected.type == "input"'>
+                <label for="exampleFormControlInput1">Placeholder</label>
+                <input type="text" class="form-control" [(ngModel)]="selected.placeholder">
+            </div>
+
+          </div>
+
+          
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab>
+        <ng-template ngbTabTitle>Custom</ng-template>
+        <ng-template ngbTabContent>
+          Some Custom class or attach code
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Form Config">
+        <ng-template ngbTabContent>
+
+          <div class="form-group">
+            <label for="exampleFormControlInput1">Form Name</label>
+            <input type="text" class="form-control" [(ngModel)]="formName">
+          </div>
+  
+          <button class="btn btn-primary" (click)="saveForm()">Save Form</button>
+        </ng-template>
+      </ngb-tab>
+    </ngb-tabset>
+
+
+  </div>
+</div>

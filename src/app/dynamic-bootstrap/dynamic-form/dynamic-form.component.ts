@@ -13,6 +13,8 @@ import {
   FormControl
 } from "@angular/forms";
 import { FieldConfig } from "../fields.interface";
+import { DragulaService } from "ng2-dragula";
+import { Subscription } from 'rxjs';
 
 @Component({
   exportAs: "dynamicForm",
@@ -30,7 +32,20 @@ export class DynamicFormComponent implements OnInit {
   get value() {
     return this.form.value;
   }
-  constructor(private fb: FormBuilder) {}
+
+  subs = new Subscription();
+
+
+  constructor(private fb: FormBuilder, private dragulaService: DragulaService) {
+
+    this.subs.add(this.dragulaService.drop("dynamicForm")
+      .subscribe(({ name, el, target, source, sibling  }) => {
+        console.log(el);
+        console.log(sibling);
+      })
+    );
+
+  }
 
   ngOnInit() {
     this.form = this.createControl();
