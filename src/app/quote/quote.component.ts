@@ -6,7 +6,7 @@ import { Customer } from '../model/customer';
 import { debounceTime } from 'rxjs/operators';
 import { DynamicFormComponent } from '../dynamic-bootstrap/dynamic-form/dynamic-form.component';
 import { FieldConfig } from "../dynamic-bootstrap/fields.interface";
-import { quoteFields } from '../shared/fields-config';
+import { quoteFields, navLinks } from '../shared/fields-config';
 
 function emailMatcher(c: AbstractControl): { [key: string]: boolean } | null {
   const emailControl = c.get('email');
@@ -122,5 +122,10 @@ export class QuoteComponent implements OnInit {
   printCurrent(){
     console.log(this.regConfig);
   }
+
+  addLink(){
+    navLinks.push({ text: 'Forms', path: '/forms' });
+  }
+
 
 }

@@ -28,6 +28,7 @@ import { DragulaModule } from 'ng2-dragula';
 import { AgGridModule } from 'ag-grid-angular';
 import { DataGridComponent } from './data-grid/data-grid.component';
 import { SafeHtmlPipe } from './shared/safe-html.pipe';
+import { FormsComponent } from './forms/forms.component';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { SafeHtmlPipe } from './shared/safe-html.pipe';
     DynamicFormComponent,
     DesignerComponent,
     DataGridComponent,
-    SafeHtmlPipe
+    SafeHtmlPipe,
+    FormsComponent
   ],
   imports: [
     BrowserModule,
@@ -61,6 +63,7 @@ import { SafeHtmlPipe } from './shared/safe-html.pipe';
     AgGridModule.withComponents([]),
     DragulaModule.forRoot(),
     RouterModule.forRoot([
+      { path: 'forms/:name', component: FormsComponent },
       { path: 'datagrid', component: DataGridComponent },
       { path: 'designer', component: DesignerComponent },
       { path: 'sql', component: SqlComponent },

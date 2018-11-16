@@ -3,6 +3,15 @@ import { FieldConfig } from "../dynamic-bootstrap/fields.interface";
 import {  Validators } from '@angular/forms';
 
 
+export var navLinks : any[] = [
+  { text: 'Quote', path: '/quote' },
+  { text: 'Product List', path: '/products' },    
+  { text: 'Run SQL', path: '/sql' },
+  { text: 'Designer', path: '/designer' },
+  { text: 'Forms', path: '/forms/form990' },
+  { text: 'Data Grid', path: '/datagrid' }
+]
+
 export const quoteFields: FieldConfig[] = [
     {
       type: "input",

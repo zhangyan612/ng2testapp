@@ -138,7 +138,7 @@ export class DesignerComponent implements OnInit {
 
 
   addTextField(id: number): void {
-    //let config = availableFields[id];
+    // let config = availableFields[id];
     // config.name= config.name+elementId;
     let config = {
       type: "input",
@@ -153,9 +153,7 @@ export class DesignerComponent implements OnInit {
         }
       ]
     }
-
     //console.log(this.form);
-
     console.log(config);
 
     // const control = this.fb.control(
