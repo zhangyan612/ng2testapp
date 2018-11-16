@@ -39,12 +39,12 @@ export class DynamicFormComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private dragulaService: DragulaService) {
 
-    this.subs.add(this.dragulaService.drop("dynamicForm")
-      .subscribe(({ name, el, target, source, sibling  }) => {
-        console.log(el);
-        console.log(sibling);
-      })
-    );
+    // this.subs.add(this.dragulaService.drop("dynamicForm")
+    //   .subscribe(({ name, el, target, source, sibling  }) => {
+    //     console.log(el);
+    //     console.log(sibling);
+    //   })
+    // );
 
   }
 
@@ -87,6 +87,7 @@ export class DynamicFormComponent implements OnInit {
   }
 
   validateAllFormFields(formGroup: FormGroup) {
+    debugger
     Object.keys(formGroup.controls).forEach(field => {
       const control = formGroup.get(field);
       control.markAsTouched({ onlySelf: true });
