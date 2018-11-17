@@ -61,11 +61,12 @@ export class DesignerComponent implements OnInit {
     }
   ];
 
-  submit: EventEmitter<any> = new EventEmitter<any>();
+  get controls() { return this.fields.filter(({type}) => type !== 'button'); }
+  get changes() { return this.form.valueChanges; }
+  get valid() { return this.form.valid; }
+  get value() { return this.form.value; }
 
-  get value() {
-    return this.form.value;
-  }
+  submit: EventEmitter<any> = new EventEmitter<any>();
 
   availables = [
     new WebElement(0,'Title', '<b>{{args.lebal}}</b>','fa-text-width', {lebal: 'test title'}),  //[new ElementProperty('lebal', 'test title')]
@@ -139,7 +140,6 @@ export class DesignerComponent implements OnInit {
 
   addTextField(id: number): void {
     // let config = availableFields[id];
-    // config.name= config.name+elementId;
     let config = {
       type: "input",
       label: "First Name",
@@ -153,6 +153,9 @@ export class DesignerComponent implements OnInit {
         }
       ]
     }
+
+    //config.name= config.name+elementId;
+
     //console.log(this.form);
     console.log(config);
 
@@ -164,11 +167,34 @@ export class DesignerComponent implements OnInit {
 
     this.fields.push(config);
 
-    console.log(this.form);
+    this.form = this.createControl();
 
+    console.log(this.form);
+    
     elementId++;
   }
 
+
+  ngOnChanges() {
+    if (this.form) {
+      const controls = Object.keys(this.form.controls);
+      const configControls = this.controls.map((item) => item.name);
+
+      controls
+        .filter((control) => !configControls.includes(control))
+        .forEach((control) => this.form.removeControl(control));
+
+
+      this.form = this.createControl();
+      // configControls
+      //   .filter((control) => !controls.includes(control));
+        // .forEach((name) => {
+        //   const config = this.fields.find((control) => control.name === name);
+        //   this.form.addControl(name, this.createControl());
+        // });      
+
+    }
+  }
   
   onSubmit(event: Event) {
     console.log(event);

@@ -39,12 +39,26 @@ export class DynamicFieldDirective implements OnInit {
     private container: ViewContainerRef
   ) {}
   ngOnInit() {
-    const factory = this.resolver.resolveComponentFactory(
-      componentMapper[this.field.type]
-    );
-    this.componentRef = this.container.createComponent(factory);
+    if (!componentMapper[this.field.type]) {
+      const supportedTypes = Object.keys(componentMapper).join(', ');
+      throw new Error(
+        `Trying to use an unsupported type (${this.field.type}).
+        Supported types: ${supportedTypes}`
+      );
+    }
+    const component = componentMapper[this.field.type];
+    const factory = this.resolver.resolveComponentFactory<any>(component);
+    //debugger
+    this.componentRef = this.container.createComponent(factory); // create component
     this.componentRef.instance.field = this.field;
     this.componentRef.instance.group = this.group;
+  }
+
+  ngOnChanges() {
+    if (this.componentRef) {
+      this.componentRef.instance.config = this.field;
+      this.componentRef.instance.group = this.group;
+    }
   }
 
   @HostListener('click',['$event']) onclick($event) {
