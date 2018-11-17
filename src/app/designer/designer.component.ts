@@ -49,7 +49,7 @@ export class DesignerComponent implements OnInit {
       type: "input",
       label: "Sample Text",
       inputType: "text",
-      name: "sample",
+      name: "Line1",
       placeholder:"please input text",
       validations: [
         {
@@ -139,62 +139,40 @@ export class DesignerComponent implements OnInit {
 
 
   addTextField(id: number): void {
-    // let config = availableFields[id];
-    let config = {
-      type: "input",
-      label: "First Name",
-      inputType: "text",
-      name: "sample",
-      validations: [
-        {
-          name: "required",
-          validator: Validators.required,
-          message: "First Name Required"
-        }
-      ]
-    }
+    let config = availableFields[id];
+    elementId++;
+    config.name= config.name+elementId;
 
-    //config.name= config.name+elementId;
-
-    //console.log(this.form);
     console.log(config);
-
-    // const control = this.fb.control(
-    //   config,
-    //   this.bindValidations(config.validations || [])
-    // );
-    // this.form.addControl(config.name, control);
-
     this.fields.push(config);
 
     this.form = this.createControl();
 
     console.log(this.form);
     
-    elementId++;
   }
 
 
-  ngOnChanges() {
-    if (this.form) {
-      const controls = Object.keys(this.form.controls);
-      const configControls = this.controls.map((item) => item.name);
+  // ngOnChanges() {
+  //   if (this.form) {
+  //     const controls = Object.keys(this.form.controls);
+  //     const configControls = this.controls.map((item) => item.name);
 
-      controls
-        .filter((control) => !configControls.includes(control))
-        .forEach((control) => this.form.removeControl(control));
+  //     controls
+  //       .filter((control) => !configControls.includes(control))
+  //       .forEach((control) => this.form.removeControl(control));
 
 
-      this.form = this.createControl();
-      // configControls
-      //   .filter((control) => !controls.includes(control));
-        // .forEach((name) => {
-        //   const config = this.fields.find((control) => control.name === name);
-        //   this.form.addControl(name, this.createControl());
-        // });      
+  //     this.form = this.createControl();
+  //     // configControls
+  //     //   .filter((control) => !controls.includes(control));
+  //       // .forEach((name) => {
+  //       //   const config = this.fields.find((control) => control.name === name);
+  //       //   this.form.addControl(name, this.createControl());
+  //       // });      
 
-    }
-  }
+  //   }
+  // }
   
   onSubmit(event: Event) {
     console.log(event);

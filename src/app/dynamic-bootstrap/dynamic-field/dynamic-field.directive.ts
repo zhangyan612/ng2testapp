@@ -7,7 +7,8 @@ import {
   ViewContainerRef,
   Output,
   EventEmitter,
-  HostListener
+  HostListener,
+  OnChanges
 } from "@angular/core";
 import { FormGroup } from "@angular/forms";
 import { FieldConfig } from "../fields.interface";
@@ -33,11 +34,13 @@ export class DynamicFieldDirective implements OnInit {
   @Input() field: FieldConfig;
   @Input() group: FormGroup;
   @Output() elementClicked: EventEmitter<any> = new EventEmitter<any>();
-  componentRef: any;
+  componentRef: ComponentRef<any>;
+
   constructor(
     private resolver: ComponentFactoryResolver,
     private container: ViewContainerRef
   ) {}
+
   ngOnInit() {
     if (!componentMapper[this.field.type]) {
       const supportedTypes = Object.keys(componentMapper).join(', ');
@@ -46,20 +49,38 @@ export class DynamicFieldDirective implements OnInit {
         Supported types: ${supportedTypes}`
       );
     }
+    
     const component = componentMapper[this.field.type];
     const factory = this.resolver.resolveComponentFactory<any>(component);
-    //debugger
     this.componentRef = this.container.createComponent(factory); // create component
     this.componentRef.instance.field = this.field;
     this.componentRef.instance.group = this.group;
+    console.log('ngOnInit')
   }
 
-  ngOnChanges() {
-    if (this.componentRef) {
-      this.componentRef.instance.config = this.field;
-      this.componentRef.instance.group = this.group;
-    }
-  }
+  // ngOnChanges() {
+  //   console.log('ngOnChanges')
+  //   // if (this.field) {
+  //   //   this.componentRef.instance.field = this.field;
+  //   //   this.componentRef.instance.group = this.group;
+  //   // }
+  // }
+  // ngDoCheck(){
+  //   console.log('do check')
+  // }
+
+  // ngAfterContentInit(){
+  //   console.log('ngAfterContentInit')
+  // }
+  
+  // ngAfterViewInit(){
+  //   console.log('ngAfterViewInit')
+  // }
+
+  // ngAfterViewChecked(){
+  //   console.log('ngAfterViewChecked')
+  // }
+
 
   @HostListener('click',['$event']) onclick($event) {
     //debugger;

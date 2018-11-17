@@ -88,10 +88,6 @@
           {{selected | json}}
 
           <div *ngIf='selected'>
-            <div class="form-group" *ngIf='selected.name'>
-              <label for="exampleFormControlInput1">Field Name</label>
-              <input type="text" class="form-control" [(ngModel)]="selected.name">
-            </div>
     
             <div class="form-group" >
               <label for="exampleFormControlInput1">Field Label</label>
@@ -114,6 +110,11 @@
             <div class="form-group" *ngIf='selected.type == "input"'>
                 <label for="exampleFormControlInput1">Placeholder</label>
                 <input type="text" class="form-control" [(ngModel)]="selected.placeholder">
+            </div>
+
+            <div class="form-group" *ngIf='selected.name'>
+              <label for="exampleFormControlInput1">Field Name</label>
+              <input type="text" class="form-control" [(ngModel)]="selected.name" disabled>
             </div>
 
           </div>

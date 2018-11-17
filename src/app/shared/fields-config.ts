@@ -120,7 +120,7 @@ export const availableFields: FieldConfig[] = [
         type: "input",
         label: "Text",
         inputType: "text",
-        name: "firstText",
+        name: "Line",
         placeholder:"",
         validations: []
     },

@@ -2,7 +2,7 @@
 <div class="form-group" [formGroup]="group">
     <label for="field.name">{{field.label}}</label>
     <input class="form-control" type="text" [formControlName]="field.name" 
-    [placeholder]="field.placeholder" [type]="field.inputType" 
+    [placeholder]="field.placeholder" [type]="field.inputType" value=""
     [ngClass]="{'is-invalid': (group.get(field.name).touched || group.get(field.name).dirty) && !group.get(field.name).valid }">
 
     <span class="invalid-feedback" *ngFor="let validation of field.validations">
