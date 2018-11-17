@@ -13,5 +13,6 @@ export interface Validator {
     type: string;
     value?: any;
     validations?: Validator[];
+    mode?: string;
   }
   
