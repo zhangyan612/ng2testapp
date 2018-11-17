@@ -156,7 +156,7 @@ export class DesignerComponent implements OnInit {
     // console.log(this.selected.name);
     // console.log(this.form.controls[this.selected.name]);
 
-    // const existing = this.form.controls[this.selected.name];
+    // const existing = th  is.form.controls[this.selected.name];
     // this.form.setControl(event.target.value, existing);
 
     // console.log(this.form);
