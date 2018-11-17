@@ -9,7 +9,7 @@ import { IProduct } from "./product";
     providedIn: 'root'
 })
 export class ProductService {
-    private productUrl = 'http://localhost:57603/api/product';
+    private productUrl = 'http://localhost:57602/api/product';
 
     constructor(private http: HttpClient){}
 

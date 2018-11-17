@@ -36,7 +36,7 @@
   }
   
   .vamp:not(:last-child) {
-    border-bottom: 1px solid #777;
+    border-bottom: 1px solid rgb(180, 177, 177);
   }
   
   a:link, a:visited, a:hover, a:active { color: lightblue; }

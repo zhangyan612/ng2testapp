@@ -14,7 +14,6 @@ export var navLinks : any[] = [
 
 export const quoteFields: FieldConfig[] = [
     {
-      id: 1,
       type: "input",
       label: "First Name",
       inputType: "text",
@@ -34,7 +33,6 @@ export const quoteFields: FieldConfig[] = [
       ]
     },
     {
-      id: 2,
       type: "input",
       label: "Last Name",
       inputType: "text",
@@ -43,7 +41,6 @@ export const quoteFields: FieldConfig[] = [
       validations: []
     },
     {
-      id: 3,
       type: "input",
       label: "Email Address",
       inputType: "email",
@@ -65,7 +62,6 @@ export const quoteFields: FieldConfig[] = [
       ]
     },
     {
-      id: 4,
       type: "input",
       label: "Password",
       inputType: "password",
@@ -80,7 +76,6 @@ export const quoteFields: FieldConfig[] = [
       ]
     },
     {
-      id: 5,
       type: "radiobutton",
       label: "Gender",
       name: "gender",
@@ -88,7 +83,6 @@ export const quoteFields: FieldConfig[] = [
       value: "Male"
     },
     {
-      id: 6,
       type: "date",
       label: "DOB",
       name: "dob",
@@ -102,7 +96,6 @@ export const quoteFields: FieldConfig[] = [
       ]
     },
     {
-      id: 7,
       type: "select",
       label: "Country",
       name: "country",
@@ -110,14 +103,12 @@ export const quoteFields: FieldConfig[] = [
       options: ["US", "Canada", "UK", "China"]
     },
     {
-      id: 8,
       type: "checkbox",
       label: "Accept Terms",
       name: "term",
       value: true
     },
     {
-      id: 9,
       type: "button",
       label: "Save"
     }
@@ -126,7 +117,6 @@ export const quoteFields: FieldConfig[] = [
 
 export const availableFields: FieldConfig[] = [
     {
-        id: 1,
         type: "input",
         label: "Text",
         inputType: "text",
@@ -135,7 +125,6 @@ export const availableFields: FieldConfig[] = [
         validations: []
     },
     {
-      id: 2,
       type: "input",
       label: "Text field with validation",
       inputType: "text",
@@ -155,7 +144,6 @@ export const availableFields: FieldConfig[] = [
       ]
     },
     {
-      id: 3,
       type: "input",
       label: "Email Address",
       inputType: "email",
@@ -177,7 +165,6 @@ export const availableFields: FieldConfig[] = [
       ]
     },
     {
-      id: 4,
       type: "input",
       label: "Password",
       inputType: "password",
@@ -192,7 +179,6 @@ export const availableFields: FieldConfig[] = [
       ]
     },
     {
-      id: 5,
       type: "radiobutton",
       label: "Gender",
       name: "gender",
@@ -200,7 +186,6 @@ export const availableFields: FieldConfig[] = [
       value: "Male"
     },
     {
-      id: 6,
       type: "date",
       label: "DOB",
       name: "dob",
@@ -214,7 +199,6 @@ export const availableFields: FieldConfig[] = [
       ]
     },
     {
-      id: 7,
       type: "select",
       label: "Country",
       name: "country",
@@ -222,14 +206,12 @@ export const availableFields: FieldConfig[] = [
       options: ["US", "Canada", "UK", "China"]
     },
     {
-      id: 8,
       type: "checkbox",
       label: "Accept Terms",
       name: "term",
       value: true
     },
     {
-      id: 9,
       type: "button",
       label: "Save"
     }

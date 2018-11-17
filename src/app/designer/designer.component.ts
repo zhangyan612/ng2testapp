@@ -67,6 +67,8 @@ export class DesignerComponent implements OnInit {
   get valid() { return this.form.valid; }
   get value() { return this.form.value; }
 
+  availableFields() { return availableFields; }
+
   submit: EventEmitter<any> = new EventEmitter<any>();
 
   availables = [
@@ -77,9 +79,8 @@ export class DesignerComponent implements OnInit {
     new WebElement(4, 'Radio Button', '<pm-star [rating]=product.starRating></pm-star>','fa-text-width', {lebal: 'test title'}), 
     new WebElement(5, 'Date', '<pm-star [rating]=product.starRating></pm-star>','fa-text-width', {lebal: 'test title'}), 
     new WebElement(8, 'Button', '<button type="button" class="btn btn-primary">Primary</button>', 'fa-square',  {lebal: 'test title'}),
-
-
   ];
+
   // generated = [
   //   new WebElement('Title', '<b>New Form</b>', 'fa-text-width', {lebal: 'test title'}),
   // ];
@@ -140,11 +141,12 @@ export class DesignerComponent implements OnInit {
 
 
   addTextField(id: number): void {
-    let config = availableFields[id];
+    const allFields = this.availableFields();
+    let config = allFields[id];
     //let config = availableFields[id];
     elementId++;
     config.name = config.name+elementId;
-    debugger
+    //debugger
     console.log(config);
     this.fields.push(config);
 

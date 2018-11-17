@@ -8,7 +8,7 @@ import { catchError, tap, map } from 'rxjs/operators'
   providedIn: 'root'
 })
 export class DataService {
-  private apiUrl = 'http://localhost:57603/api/';  
+  private apiUrl = 'http://localhost:57602/api/'  ;  
   private header = new HttpHeaders({'Content-Type':  'application/json'})
   private httpOptions = {
     headers: this.header
@@ -42,6 +42,13 @@ export class DataService {
   create(url: string, data: any): Observable<any> {
     let bodyString = JSON.stringify(data);
     return this.http.post(this.apiUrl + url, bodyString, this.httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  saveList(url: string, data: any): Observable<any> {
+    let bodyString = JSON.stringify(data);
+    return this.http.post(this.apiUrl + url + "/list", bodyString, this.httpOptions).pipe(
       catchError(this.handleError)
     );
   }

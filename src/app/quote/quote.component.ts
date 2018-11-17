@@ -131,7 +131,37 @@ export class QuoteComponent implements OnInit {
 
   saveFields(){
     console.log(this.regConfig);
-    this.dataService.create('Fields', this.regConfig);
+
+    // let test = {
+    //   type: "input",
+    //   label: "First Name",
+    //   inputType: "text",
+    //   name: "newname", //not working
+    //   validations: [
+    //     {
+    //       name: "required",
+    //       validator: Validators.required,
+    //       message: "First Name Required"
+    //     },
+    //     {
+    //       name: "pattern",
+    //       validator: Validators.pattern("^[a-zA-Z]+$"),
+    //       message: "Accept only text"
+    //     }
+    //   ]
+    // }
+    this.dataService.saveList('fields', this.regConfig).subscribe(
+      error => this.errorMessage = <any>error
+    );
+
+
+    // for (var i of this.regConfig){
+    //   this.dataService.create('Fields', i).subscribe(
+    //     error => this.errorMessage = <any>error
+    //   );
+    // }
+
+
   }
 
 
