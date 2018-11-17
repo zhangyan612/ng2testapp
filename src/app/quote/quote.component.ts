@@ -6,7 +6,7 @@ import { Customer } from '../model/customer';
 import { debounceTime } from 'rxjs/operators';
 import { DynamicFormComponent } from '../dynamic-bootstrap/dynamic-form/dynamic-form.component';
 import { FieldConfig } from "../dynamic-bootstrap/fields.interface";
-import { quoteFields, navLinks } from '../shared/fields-config';
+import { quoteFields, navLinks, availableFields } from '../shared/fields-config';
 
 function emailMatcher(c: AbstractControl): { [key: string]: boolean } | null {
   const emailControl = c.get('email');
@@ -49,7 +49,7 @@ export class QuoteComponent implements OnInit {
 
   }
 
-  regConfig: FieldConfig[] = quoteFields;
+  regConfig: FieldConfig[] = availableFields;
   
 
   ngOnInit() {
@@ -97,6 +97,7 @@ export class QuoteComponent implements OnInit {
   addConfig(data: FieldConfig[] ) {
 
     let additional = {
+      id: 2,
       type: "input",
       label: "First Name",
       inputType: "text",
@@ -126,6 +127,13 @@ export class QuoteComponent implements OnInit {
   addLink(){
     navLinks.push({ text: 'Forms', path: '/forms' });
   }
+
+
+  saveFields(){
+    console.log(this.regConfig);
+    this.dataService.create('Fields', this.regConfig);
+  }
+
 
 
 }

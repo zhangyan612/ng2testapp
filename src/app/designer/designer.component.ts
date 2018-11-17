@@ -46,6 +46,7 @@ export class DesignerComponent implements OnInit {
 
   fields: FieldConfig[] = [
     {
+      id: 1,
       type: "input",
       label: "Sample Text",
       inputType: "text",
@@ -140,9 +141,10 @@ export class DesignerComponent implements OnInit {
 
   addTextField(id: number): void {
     let config = availableFields[id];
+    //let config = availableFields[id];
     elementId++;
-    config.name= config.name+elementId;
-
+    config.name = config.name+elementId;
+    debugger
     console.log(config);
     this.fields.push(config);
 
@@ -203,7 +205,7 @@ export class DesignerComponent implements OnInit {
   }
 
   createControl() {
-    //debugger
+    
     console.log('creating controls')
     const group = this.fb.group({});
     this.fields.forEach(field => {
