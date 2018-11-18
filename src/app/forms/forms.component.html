@@ -77,7 +77,6 @@
                     <div  *ngFor="let f of fields" dynamicField [field]="f" [group]="form" (click)='loadField(f)'>
                     </div>
                 </form>
-                
 
                 {{form.value | json}}      
             </div>

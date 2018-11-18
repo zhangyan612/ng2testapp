@@ -18,6 +18,8 @@ export class FormsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private dataService: DataService, private fb: FormBuilder) 
   { 
+    this.formName = this.route.snapshot.paramMap.get('name');
+
     this.dataService.getAll('fields').subscribe(
       f => {
         this.fields = f;
@@ -28,8 +30,9 @@ export class FormsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.formName = this.route.snapshot.paramMap.get('name');
     //this.fields = availableFields;
+    this.form = this.createControl(this.fields);
+    
   }
 
   onSubmit(event: Event) {

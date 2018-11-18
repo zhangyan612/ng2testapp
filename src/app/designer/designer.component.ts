@@ -4,6 +4,7 @@ import { DragulaService } from 'ng2-dragula';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { FieldConfig } from '../dynamic-bootstrap/fields.interface';
 import { DataService } from '../services/data.service';
+import { FormDefinition } from '../model/form-definition';
 
 let elementId = 1;
 
@@ -43,27 +44,30 @@ class ElementProperty {
 export class DesignerComponent implements OnInit {
   form: FormGroup;
   formName: string;
+  formPath: string;
   errorMessage: string;
+  formDefination : FormDefinition
+  = { FormName:'', FormPath:'', Fields:[] } as FormDefinition
 
-  fields: FieldConfig[] = [
-    {
-      id: 1,
-      type: "input",
-      label: "Sample Text",
-      inputType: "text",
-      name: "Line1",
-      placeholder:"please input text",
-      validations: [
-        {
-          name: "required",
-          validator: Validators.required,
-          message: "Text Required"
-        }
-      ]
-    }
-  ];
+  // fields: FieldConfig[] = [
+  //   {
+  //     id: 1,
+  //     type: "input",
+  //     label: "Sample Text",
+  //     inputType: "text",
+  //     name: "Line1",
+  //     placeholder:"please input text",
+  //     validations: [
+  //       {
+  //         name: "required",
+  //         validator: Validators.required,
+  //         message: "Text Required"
+  //       }
+  //     ]
+  //   }
+  // ];
 
-  get controls() { return this.fields.filter(({type}) => type !== 'button'); }
+  // get controls() { return this.fields.filter(({type}) => type !== 'button'); }
   get changes() { return this.form.valueChanges; }
   get valid() { return this.form.valid; }
   get value() { return this.form.value; }
@@ -89,6 +93,8 @@ export class DesignerComponent implements OnInit {
 
   constructor(private dragulaService: DragulaService,
     private fb: FormBuilder, private dataService: DataService) {
+      //this.formDefination.Fields = availableFields;
+
     // dragulaService.createGroup('formBuilder', {
     //   copy: (el, source) => {
     //     return source.id === 'left';
@@ -153,7 +159,7 @@ export class DesignerComponent implements OnInit {
     elementId++;
     config.name = config.name+elementId;
     console.log(config);
-    this.fields.push(config);
+    this.formDefination.Fields.push(config);
     this.form = this.createControl();
     console.log(this.form);
   }
@@ -206,13 +212,14 @@ export class DesignerComponent implements OnInit {
   }
 
   ngOnInit() {
+
     this.form = this.createControl();
   }
 
   createControl() {
     console.log('creating controls')
     const group = this.fb.group({});
-    this.fields.forEach(field => {
+    this.formDefination.Fields.forEach(field => {
       if (field.type === "button") return;
       const control = this.fb.control(
         field.value,
@@ -253,7 +260,7 @@ export class DesignerComponent implements OnInit {
 
   saveForm(): void{
     console.log(this.formName); 
-    console.log(this.fields);
+    console.log(this.formDefination);
   }
 
 }
