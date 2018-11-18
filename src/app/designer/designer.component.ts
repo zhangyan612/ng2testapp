@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import { DragulaService } from 'ng2-dragula';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { FieldConfig } from '../dynamic-bootstrap/fields.interface';
-import { availableFields } from '../shared/fields-config';
+import { DataService } from '../services/data.service';
 
 let elementId = 1;
 
@@ -43,6 +43,7 @@ class ElementProperty {
 export class DesignerComponent implements OnInit {
   form: FormGroup;
   formName: string;
+  errorMessage: string;
 
   fields: FieldConfig[] = [
     {
@@ -67,13 +68,13 @@ export class DesignerComponent implements OnInit {
   get valid() { return this.form.valid; }
   get value() { return this.form.value; }
 
-  availableFields() { return availableFields; }
 
   submit: EventEmitter<any> = new EventEmitter<any>();
 
   availables = [
     new WebElement(0,'Title', '<b>{{args.lebal}}</b>','fa-text-width', {lebal: 'test title'}),  //[new ElementProperty('lebal', 'test title')]
     new WebElement(1, 'Text Field', '<div class="form-group"> <label for="textfield">New Field</label> <input type="text" class="form-control" id="textfield" placeholder="some text"> </div>', 'fa-pencil-square-o', {lebal: 'test title'}),
+    new WebElement(0, 'Number Field', '', 'fa-pencil-square-o', {lebal: 'Line 1'}),
     new WebElement(6, 'Select', '<div class="form-group"> <label for="exampleFormControlSelect1">Example select</label> <select class="form-control" id="exampleFormControlSelect1"> <option>1</option> <option>2</option> <option>3</option> </select> </div>', 'fa-bars', {lebal: 'test title'}),
     new WebElement(7,'Checkboxes', '<div class="custom-control custom-checkbox"> <input type="checkbox" class="custom-control-input" id="customCheck1"> <label class="custom-control-label" for="customCheck1">Check this custom checkbox</label> </div>','fa-check-square', {lebal: 'test title'}),
     new WebElement(4, 'Radio Button', '<pm-star [rating]=product.starRating></pm-star>','fa-text-width', {lebal: 'test title'}), 
@@ -81,13 +82,13 @@ export class DesignerComponent implements OnInit {
     new WebElement(8, 'Button', '<button type="button" class="btn btn-primary">Primary</button>', 'fa-square',  {lebal: 'test title'}),
   ];
 
-  // generated = [
-  //   new WebElement('Title', '<b>New Form</b>', 'fa-text-width', {lebal: 'test title'}),
-  // ];
   selected: FieldConfig;
   regConfig: FieldConfig[] = []
 
-  constructor(private dragulaService: DragulaService, private fb: FormBuilder) {
+  availableFields :FieldConfig[] = []
+
+  constructor(private dragulaService: DragulaService,
+    private fb: FormBuilder, private dataService: DataService) {
     // dragulaService.createGroup('formBuilder', {
     //   copy: (el, source) => {
     //     return source.id === 'left';
@@ -109,6 +110,12 @@ export class DesignerComponent implements OnInit {
     //   console.log(args);
     //   //this.onDrop(args);
     // });
+    this.dataService.getAll('fields').subscribe(
+      f => {
+        this.availableFields = f;
+      },
+      error => this.errorMessage = <any>error
+    );
   }
 
   // public onclick(item: any) {
@@ -141,17 +148,13 @@ export class DesignerComponent implements OnInit {
 
 
   addTextField(id: number): void {
-    const allFields = this.availableFields();
-    let config = allFields[id];
+    let config = {...this.availableFields[id]};
     //let config = availableFields[id];
     elementId++;
     config.name = config.name+elementId;
-    //debugger
     console.log(config);
     this.fields.push(config);
-
     this.form = this.createControl();
-
     console.log(this.form);
   }
 
@@ -195,11 +198,11 @@ export class DesignerComponent implements OnInit {
     debugger
     event.preventDefault();
     event.stopPropagation();
-    if (this.form.valid) {
-      this.submit.emit(this.form.value);
-    } else {
-      this.validateAllFormFields(this.form);
-    }
+    // if (this.form.valid) {
+    //   this.submit.emit(this.form.value);
+    // } else {
+    //   this.validateAllFormFields(this.form);
+    // }
   }
 
   ngOnInit() {
@@ -207,7 +210,6 @@ export class DesignerComponent implements OnInit {
   }
 
   createControl() {
-    
     console.log('creating controls')
     const group = this.fb.group({});
     this.fields.forEach(field => {
@@ -250,7 +252,7 @@ export class DesignerComponent implements OnInit {
   }
 
   saveForm(): void{
-    console.log(this.formName);
+    console.log(this.formName); 
     console.log(this.fields);
   }
 

@@ -115,7 +115,7 @@
             <div class="form-group" *ngIf='selected.name'>
               <label for="exampleFormControlInput1">Field Name</label>
               <input type="text" class="form-control" [ngModel]="selected.name" (change)="onFormNameChange($event)"
-              >
+              disabled>
             </div>
 
           </div>
@@ -133,7 +133,7 @@
 
           <div class="form-group">
             <label for="exampleFormControlInput1">Form Name</label>
-            <input type="text" class="form-control" [(ngModel)]="formName">
+            <input type="text" class="form-control" [(ngModel)]="formName" required>
           </div>
   
           <button class="btn btn-primary" (click)="saveForm()">Save Form</button>
