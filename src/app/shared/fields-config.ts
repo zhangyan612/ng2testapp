@@ -8,7 +8,7 @@ export var navLinks : any[] = [
   { text: 'Product List', path: '/products' },    
   { text: 'Run SQL', path: '/sql' },
   { text: 'Designer', path: '/designer' },
-  { text: 'Forms', path: '/forms/form990' },
+  { text: 'Forms', path: '/forms/test' },
   { text: 'Data Grid', path: '/datagrid' }
 ]
 

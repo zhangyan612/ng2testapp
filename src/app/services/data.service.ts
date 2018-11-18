@@ -39,6 +39,15 @@ export class DataService {
     );
   }
 
+  getFilter(url: string, name: string, value: string): Observable<any> {
+    let params = new HttpParams().set(name, value);
+    
+    return this.http.get<any>(this.apiUrl + url, {params}).pipe(
+        tap(data => console.log('server returns: '+ JSON.stringify(data))),
+        catchError(this.handleError)
+    );
+  }
+
   create(url: string, data: any): Observable<any> {
     let bodyString = JSON.stringify(data);
     return this.http.post(this.apiUrl + url, bodyString, this.httpOptions).pipe(

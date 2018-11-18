@@ -46,7 +46,7 @@ export class DesignerComponent implements OnInit {
   errorMessage: string;
 
   formDefination : FormDefinition
-  = { FormName:'', FormPath:'', Fields:[] } as FormDefinition
+  = { formName:'', formPath:'', fields:[] } as FormDefinition
 
   // fields: FieldConfig[] = [
   //   {
@@ -77,12 +77,12 @@ export class DesignerComponent implements OnInit {
   availables = [
     new WebElement(0,'Title', '<b>{{args.lebal}}</b>','fa-text-width', {lebal: 'test title'}),  //[new ElementProperty('lebal', 'test title')]
     new WebElement(1, 'Text Field', '<div class="form-group"> <label for="textfield">New Field</label> <input type="text" class="form-control" id="textfield" placeholder="some text"> </div>', 'fa-pencil-square-o', {lebal: 'test title'}),
-    new WebElement(0, 'Number Field', '', 'fa-pencil-square-o', {lebal: 'Line 1'}),
-    new WebElement(6, 'Select', '<div class="form-group"> <label for="exampleFormControlSelect1">Example select</label> <select class="form-control" id="exampleFormControlSelect1"> <option>1</option> <option>2</option> <option>3</option> </select> </div>', 'fa-bars', {lebal: 'test title'}),
-    new WebElement(7,'Checkboxes', '<div class="custom-control custom-checkbox"> <input type="checkbox" class="custom-control-input" id="customCheck1"> <label class="custom-control-label" for="customCheck1">Check this custom checkbox</label> </div>','fa-check-square', {lebal: 'test title'}),
-    new WebElement(4, 'Radio Button', '<pm-star [rating]=product.starRating></pm-star>','fa-text-width', {lebal: 'test title'}), 
-    new WebElement(5, 'Date', '<pm-star [rating]=product.starRating></pm-star>','fa-text-width', {lebal: 'test title'}), 
-    new WebElement(8, 'Button', '<button type="button" class="btn btn-primary">Primary</button>', 'fa-square',  {lebal: 'test title'}),
+    new WebElement(2, 'Number Field', '', 'fa-pencil-square-o', {lebal: 'Line 1'}),
+    new WebElement(6, 'Radio Button', '','fa-text-width', {lebal: 'test title'}), 
+    new WebElement(7, 'Date', '','fa-text-width', {lebal: 'test title'}), 
+    new WebElement(8, 'Select', '<div class="form-group"> <label for="exampleFormControlSelect1">Example select</label> <select class="form-control" id="exampleFormControlSelect1"> <option>1</option> <option>2</option> <option>3</option> </select> </div>', 'fa-bars', {lebal: 'test title'}),
+    new WebElement(9,'Checkboxes', '<div class="custom-control custom-checkbox"> <input type="checkbox" class="custom-control-input" id="customCheck1"> <label class="custom-control-label" for="customCheck1">Check this custom checkbox</label> </div>','fa-check-square', {lebal: 'test title'}),
+    new WebElement(10, 'Button', '<button type="button" class="btn btn-primary">Primary</button>', 'fa-square',  {lebal: 'test title'}),
   ];
 
   selected: FieldConfig;
@@ -157,7 +157,7 @@ export class DesignerComponent implements OnInit {
     elementId++;
     config.name = config.name+elementId;
     console.log(config);
-    this.formDefination.Fields.push(config);
+    this.formDefination.fields.push(config);
     this.form = this.createControl();
     console.log(this.form);
   }
@@ -217,7 +217,7 @@ export class DesignerComponent implements OnInit {
   createControl() {
     console.log('creating controls')
     const group = this.fb.group({});
-    this.formDefination.Fields.forEach(field => {
+    this.formDefination.fields.forEach(field => {
       if (field.type === "button" || field.type === "text") return;
       const control = this.fb.control(
         field.value,

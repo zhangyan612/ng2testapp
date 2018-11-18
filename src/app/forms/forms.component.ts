@@ -4,6 +4,7 @@ import { DataService } from '../services/data.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { FieldConfig } from '../dynamic-bootstrap/fields.interface';
 import { availableFields } from '../shared/fields-config';
+import { FormDefinition } from '../model/form-definition';
 
 @Component({
   selector: 'app-forms',
@@ -11,19 +12,20 @@ import { availableFields } from '../shared/fields-config';
   styleUrls: ['./forms.component.css']
 })
 export class FormsComponent implements OnInit {
-  formName: string;
+  formPath: string;
   errorMessage: string;
-  fields: FieldConfig[] = [];
   form: FormGroup;
+  formDefination : FormDefinition
+  = { formName:'', formPath:'', fields:[] } as FormDefinition
 
   constructor(private route: ActivatedRoute, private dataService: DataService, private fb: FormBuilder) 
   { 
-    this.formName = this.route.snapshot.paramMap.get('name');
-
-    this.dataService.getAll('fields').subscribe(
+    this.formPath = this.route.snapshot.paramMap.get('name');
+    //debugger
+    this.dataService.getFilter('forms','formPath', this.formPath).subscribe(
       f => {
-        this.fields = f;
-        this.form = this.createControl(f);
+        this.formDefination = f[0];
+        this.form = this.createControl(this.formDefination.fields);
       },
       error => this.errorMessage = <any>error
     );
@@ -31,7 +33,8 @@ export class FormsComponent implements OnInit {
 
   ngOnInit() {
     //this.fields = availableFields;
-    this.form = this.createControl(this.fields);
+    //debugger
+    this.form = this.createControl(this.formDefination.fields);
     
   }
 
@@ -43,6 +46,7 @@ export class FormsComponent implements OnInit {
   }
 
   createControl(fieldsConfig) {
+    //debugger
     console.log('creating controls')
     const group = this.fb.group({});
     fieldsConfig.forEach(field => {
