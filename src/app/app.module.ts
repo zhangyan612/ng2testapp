@@ -65,6 +65,7 @@ import { TextComponent } from './dynamic-bootstrap/text/text.component';
     AgGridModule.withComponents([]),
     DragulaModule.forRoot(),
     RouterModule.forRoot([
+      { path: 'forms/:name/:id', component: FormsComponent },
       { path: 'forms/:name', component: FormsComponent },
       { path: 'datagrid', component: DataGridComponent },
       { path: 'designer', component: DesignerComponent },

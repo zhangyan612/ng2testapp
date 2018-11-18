@@ -13,6 +13,8 @@ import { FormDefinition } from '../model/form-definition';
 })
 export class FormsComponent implements OnInit {
   formPath: string;
+  formId : number;
+
   errorMessage: string;
   form: FormGroup;
   formDefination : FormDefinition
@@ -40,15 +42,22 @@ export class FormsComponent implements OnInit {
     //         resolve(data);
     //       }, error => reject(error));
     // });
+    
+    // getFormDefination.then(response => {
+    //   this.formDefination = response[0];
+    //   this.form = this.createControl(this.formDefination.fields);
+    // })
 
     router.events.subscribe((val) => {
       // see also       
       //console.log('route changed ' + val) 
-
       if(val instanceof NavigationEnd){
-        this.formPath = this.route.snapshot.paramMap.get('name');
-        console.log('route changed to:' + this.formPath)
 
+        this.formPath = this.route.snapshot.paramMap.get('name');
+        var id = this.route.snapshot.paramMap.get('id');
+
+        console.log('route changed to:' + this.formPath)
+        //debugger
         this.dataService.getFilter('forms','formPath', this.formPath).subscribe(
           f => {
             this.formDefination = f[0];
@@ -57,10 +66,8 @@ export class FormsComponent implements OnInit {
           error => this.errorMessage = <any>error
         );
 
-        // getFormDefination.then(response => {
-        //   this.formDefination = response[0];
-        //   this.form = this.createControl(this.formDefination.fields);
-        // })
+
+
       }
     });
 
@@ -86,8 +93,14 @@ export class FormsComponent implements OnInit {
  
   }
 
-  ngOnChange(){
-    console.log('ngOnChange');
+  // ngOnChange(){
+  //   console.log('ngOnChange');
+  // }
+
+  saveForm() {
+    console.log('saveForm');
+    console.log(this.formPath);
+    console.log(this.form.value);
 
   }
 
