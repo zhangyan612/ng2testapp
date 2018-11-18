@@ -7,6 +7,7 @@ import { debounceTime } from 'rxjs/operators';
 import { DynamicFormComponent } from '../dynamic-bootstrap/dynamic-form/dynamic-form.component';
 import { FieldConfig } from "../dynamic-bootstrap/fields.interface";
 import { quoteFields, navLinks, availableFields } from '../shared/fields-config';
+import { Router } from '@angular/router';
 
 function emailMatcher(c: AbstractControl): { [key: string]: boolean } | null {
   const emailControl = c.get('email');
@@ -47,7 +48,7 @@ export class QuoteComponent implements OnInit {
   regConfig: FieldConfig[] = [];
   fields : FieldConfig[] = [];
 
-  constructor(private dataService: DataService, private fb: FormBuilder) {
+  constructor(private dataService: DataService, private fb: FormBuilder, private router: Router) {
     
   }
   
@@ -118,7 +119,20 @@ export class QuoteComponent implements OnInit {
   }
 
   addLink(){
-    navLinks.push({ text: 'Forms', path: '/forms' });
+    //navLinks.push({ text: 'Forms', path: '/forms' });
+
+    var allFields = new Promise((resolve, reject) => {
+      this.dataService.getAll('fields')
+          .subscribe(data => {
+            //DO SOMETHING, THEN ----
+            resolve(data);
+          }, error => reject(error));
+    });
+
+    allFields.then(response => this.router.navigate(['/home']))
+
+
+
   }
 
 

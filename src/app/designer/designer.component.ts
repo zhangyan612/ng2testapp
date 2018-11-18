@@ -260,16 +260,26 @@ export class DesignerComponent implements OnInit {
   saveForm(): void{
     console.log(this.formDefination);
 
-    this.dataService.create('forms', this.formDefination).subscribe(
-      error => this.errorMessage = <any>error
-    );
+    var saveOperation = new Promise((resolve, reject) => {
+      this.dataService.create('forms', this.formDefination)
+          .subscribe(data => {
+            resolve(data);
+          }, error => reject(error));
 
-    // Add to menu item 
-    this.dataService.create('sideBar', {name: this.formDefination.formName, url: this.formDefination.formPath}).subscribe(
-      error => this.errorMessage = <any>error
-    );
+      this.dataService.create('sideBar', {name: this.formDefination.formName, url: this.formDefination.formPath})
+        .subscribe(data => {
+          resolve(data);
+        }, error => reject(error));
+      
+    });
 
-   this.router.navigate(['/forms/' + this.formDefination.formPath]);
+
+    saveOperation.then(
+      response => console.log(response)
+    ).then(
+      response => this.router.navigate(['/forms/' + this.formDefination.formPath])
+    )
+
 
   }
 
