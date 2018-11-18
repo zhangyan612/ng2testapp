@@ -14,7 +14,6 @@ export class AppComponent {
   
   // [
   //   { text: 'forms', path: '/forms' },
-
   //   { text: 'Quote', path: '/quote' },
   //   { text: 'Product List', path: '/products' },    
   //   { text: 'Run SQL', path: '/sql' },

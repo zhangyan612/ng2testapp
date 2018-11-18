@@ -56,6 +56,7 @@ export class DynamicFieldDirective implements OnInit {
     this.componentRef.instance.field = this.field;
     this.componentRef.instance.group = this.group;
     console.log('ngOnInit')
+    //debugger
   }
 
   // ngOnChanges() {

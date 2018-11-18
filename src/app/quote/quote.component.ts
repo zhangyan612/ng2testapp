@@ -44,27 +44,22 @@ export class QuoteComponent implements OnInit {
   languages: string[] = ['English', 'Spanish', 'Chinese']
 
   emailMessage: string;
+  regConfig: FieldConfig[] = [];
+  fields : FieldConfig[] = [];
 
   constructor(private dataService: DataService, private fb: FormBuilder) {
-
+    
   }
-
-  regConfig: FieldConfig[] = availableFields;
   
-
   ngOnInit() {
     // this.customerForm.get('notification').valueChanges.subscribe(
     //   //value => this.setNotification(value)
     // );
+    this.regConfig = availableFields;
   }
 
   getData(): void {
-    // this.dataService.getById('product', 1).subscribe(
-    //   quote => {
-    //       this.quote = quote;
-    //   },
-    //   error => this.errorMessage = <any>error
-    // );
+    
   }
 
   submit(value: any) {
@@ -78,20 +73,18 @@ export class QuoteComponent implements OnInit {
     // console.log('Saved: ' + JSON.stringify(this.customerForm.value));
   }
 
-  addTextField(id: number): void {
-    let config = quoteFields[id];
-    // config.name= config.name+elementId;
-    console.log(this.form);
-
-    console.log(config);
-
+  addTextField(): void {
+    // let config = quoteFields[id];
+    // // config.name= config.name+elementId;
+    // console.log(this.form);
+    // console.log(config);
     // const control = this.fb.control(
     //   config,
     //   this.bindValidations(config.validations || [])
     // );
     // this.form.addControl(config.name, control);
-    
-    this.regConfig.push(config);
+    //this.regConfig.push(config);
+    this.regConfig = this.fields;
   }
 
   addConfig(data: FieldConfig[] ) {
@@ -132,35 +125,9 @@ export class QuoteComponent implements OnInit {
   saveFields(){
     console.log(this.regConfig);
 
-    // let test = {
-    //   type: "input",
-    //   label: "First Name",
-    //   inputType: "text",
-    //   name: "newname", //not working
-    //   validations: [
-    //     {
-    //       name: "required",
-    //       validator: Validators.required,
-    //       message: "First Name Required"
-    //     },
-    //     {
-    //       name: "pattern",
-    //       validator: Validators.pattern("^[a-zA-Z]+$"),
-    //       message: "Accept only text"
-    //     }
-    //   ]
-    // }
     this.dataService.saveList('fields', this.regConfig).subscribe(
       error => this.errorMessage = <any>error
     );
-
-
-    // for (var i of this.regConfig){
-    //   this.dataService.create('Fields', i).subscribe(
-    //     error => this.errorMessage = <any>error
-    //   );
-    // }
-
 
   }
 
