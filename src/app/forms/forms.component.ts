@@ -33,9 +33,14 @@ export class FormsComponent implements OnInit {
 
   ngOnInit() {
     //this.fields = availableFields;
-    //debugger
+    
     this.form = this.createControl(this.formDefination.fields);
     
+    // this.route.url.subscribe(url =>{
+    //   debugger
+    //   console.log(url);
+    // });
+ 
   }
 
   onSubmit(event: Event) {
