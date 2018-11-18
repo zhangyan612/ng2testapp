@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
 import { DataService } from '../services/data.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { FieldConfig } from '../dynamic-bootstrap/fields.interface';
@@ -19,22 +19,57 @@ export class FormsComponent implements OnInit {
   = { formName:'', formPath:'', fields:[] } as FormDefinition
   sideBar = [];
 
-  constructor(private route: ActivatedRoute, private dataService: DataService, private fb: FormBuilder) 
+  constructor(private route: ActivatedRoute, private router: Router,
+    private dataService: DataService, private fb: FormBuilder) 
   { 
     this.formPath = this.route.snapshot.paramMap.get('name');
+    //this.formDataId = this.route.snapshot.paramMap.get('name');
+
     //debugger
-    this.dataService.getFilter('forms','formPath', this.formPath).subscribe(
-      f => {
-        this.formDefination = f[0];
-        this.form = this.createControl(this.formDefination.fields);
-      },
-      error => this.errorMessage = <any>error
-    );
+    // this.dataService.getFilter('forms','formPath', this.formPath).subscribe(
+    //   f => {
+    //     this.formDefination = f[0];
+    //     this.form = this.createControl(this.formDefination.fields);
+    //   },
+    //   error => this.errorMessage = <any>error
+    // );
+
+    // var getFormDefination = new Promise((resolve, reject) => {
+    //   this.dataService.getFilter('forms','formPath', this.formPath)
+    //       .subscribe(data => {
+    //         resolve(data);
+    //       }, error => reject(error));
+    // });
+
+    router.events.subscribe((val) => {
+      // see also       
+      //console.log('route changed ' + val) 
+
+      if(val instanceof NavigationEnd){
+        this.formPath = this.route.snapshot.paramMap.get('name');
+        console.log('route changed to:' + this.formPath)
+
+        this.dataService.getFilter('forms','formPath', this.formPath).subscribe(
+          f => {
+            this.formDefination = f[0];
+            this.form = this.createControl(this.formDefination.fields);
+          },
+          error => this.errorMessage = <any>error
+        );
+
+        // getFormDefination.then(response => {
+        //   this.formDefination = response[0];
+        //   this.form = this.createControl(this.formDefination.fields);
+        // })
+      }
+    });
+
+
   }
 
   ngOnInit() {
     //this.fields = availableFields;
-    
+    // debugger
     this.form = this.createControl(this.formDefination.fields);
 
     this.dataService.getAll('sideBar').subscribe(
@@ -49,6 +84,11 @@ export class FormsComponent implements OnInit {
     //   console.log(url);
     // });
  
+  }
+
+  ngOnChange(){
+    console.log('ngOnChange');
+
   }
 
   onSubmit(event: Event) {
