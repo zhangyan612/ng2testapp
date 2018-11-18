@@ -5,6 +5,7 @@ import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { FieldConfig } from '../dynamic-bootstrap/fields.interface';
 import { DataService } from '../services/data.service';
 import { FormDefinition } from '../model/form-definition';
+import { Router } from '@angular/router';
 
 let elementId = 1;
 
@@ -90,7 +91,7 @@ export class DesignerComponent implements OnInit {
 
   availableFields :FieldConfig[] = []
 
-  constructor(private dragulaService: DragulaService,
+  constructor(private dragulaService: DragulaService, private router: Router,
     private fb: FormBuilder, private dataService: DataService) {
       //this.formDefination.Fields = availableFields;
 
@@ -263,7 +264,12 @@ export class DesignerComponent implements OnInit {
       error => this.errorMessage = <any>error
     );
 
-    // Add to menu item
+    // Add to menu item 
+    this.dataService.create('sideBar', {name: this.formDefination.formName, url: this.formDefination.formPath}).subscribe(
+      error => this.errorMessage = <any>error
+    );
+
+   this.router.navigate(['/forms/' + this.formDefination.formPath]);
 
   }
 

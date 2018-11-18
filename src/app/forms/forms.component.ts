@@ -17,6 +17,7 @@ export class FormsComponent implements OnInit {
   form: FormGroup;
   formDefination : FormDefinition
   = { formName:'', formPath:'', fields:[] } as FormDefinition
+  sideBar = [];
 
   constructor(private route: ActivatedRoute, private dataService: DataService, private fb: FormBuilder) 
   { 
@@ -35,6 +36,13 @@ export class FormsComponent implements OnInit {
     //this.fields = availableFields;
     
     this.form = this.createControl(this.formDefination.fields);
+
+    this.dataService.getAll('sideBar').subscribe(
+      f => {
+        this.sideBar = f;
+      },
+      error => this.errorMessage = <any>error
+    );
     
     // this.route.url.subscribe(url =>{
     //   debugger
