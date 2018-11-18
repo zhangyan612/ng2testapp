@@ -46,7 +46,7 @@ export class FormsComponent implements OnInit {
     console.log('creating controls')
     const group = this.fb.group({});
     fieldsConfig.forEach(field => {
-      if (field.type === "button") return;
+      if (field.type === "button" || field.type === "text") return;
       const control = this.fb.control(
         field.value,
         this.bindValidations(field.validations || [])

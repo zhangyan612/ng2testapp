@@ -29,6 +29,7 @@ import { AgGridModule } from 'ag-grid-angular';
 import { DataGridComponent } from './data-grid/data-grid.component';
 import { SafeHtmlPipe } from './shared/safe-html.pipe';
 import { FormsComponent } from './forms/forms.component';
+import { TextComponent } from './dynamic-bootstrap/text/text.component';
 
 @NgModule({
   declarations: [
@@ -47,6 +48,7 @@ import { FormsComponent } from './forms/forms.component';
     DateComponent,
     RadiobuttonComponent,
     CheckboxComponent,
+    TextComponent,
     DynamicFieldDirective,
     DynamicFormComponent,
     DesignerComponent,
@@ -86,7 +88,8 @@ import { FormsComponent } from './forms/forms.component';
     SelectComponent,
     DateComponent,
     RadiobuttonComponent,
-    CheckboxComponent
+    CheckboxComponent,
+    TextComponent
   ]
 })
 export class AppModule { }

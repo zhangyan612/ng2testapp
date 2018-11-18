@@ -43,9 +43,8 @@ class ElementProperty {
 })
 export class DesignerComponent implements OnInit {
   form: FormGroup;
-  formName: string;
-  formPath: string;
   errorMessage: string;
+
   formDefination : FormDefinition
   = { FormName:'', FormPath:'', Fields:[] } as FormDefinition
 
@@ -152,7 +151,6 @@ export class DesignerComponent implements OnInit {
   //   }
   // ];
 
-
   addTextField(id: number): void {
     let config = {...this.availableFields[id]};
     //let config = availableFields[id];
@@ -220,7 +218,7 @@ export class DesignerComponent implements OnInit {
     console.log('creating controls')
     const group = this.fb.group({});
     this.formDefination.Fields.forEach(field => {
-      if (field.type === "button") return;
+      if (field.type === "button" || field.type === "text") return;
       const control = this.fb.control(
         field.value,
         this.bindValidations(field.validations || [])
@@ -259,8 +257,14 @@ export class DesignerComponent implements OnInit {
   }
 
   saveForm(): void{
-    console.log(this.formName); 
     console.log(this.formDefination);
+
+    this.dataService.create('forms', this.formDefination).subscribe(
+      error => this.errorMessage = <any>error
+    );
+
+    // Add to menu item
+
   }
 
 }

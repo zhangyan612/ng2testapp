@@ -117,19 +117,31 @@ export const quoteFields: FieldConfig[] = [
 
 export const availableFields: FieldConfig[] = [
     {
+        type: "text",
+        label: "Title",
+    },
+    {
         type: "input",
         label: "Text",
         inputType: "text",
-        name: "Line",
+        name: "text",
         placeholder:"",
         validations: []
     },
     {
       type: "input",
-      label: "Text field with validation",
+      label: "Line item",
+      inputType: "number",
+      name: "line",
+      placeholder:"",
+      validations: []
+    },
+    {
+      type: "input",
+      label: "Required Text field",
       inputType: "text",
-      name: "textvalid",
-      placeholder:"text with validation",
+      name: "RequiredText",
+      placeholder:"Required",
       validations: [
         {
           name: "required",
@@ -180,35 +192,35 @@ export const availableFields: FieldConfig[] = [
     },
     {
       type: "radiobutton",
-      label: "Gender",
-      name: "gender",
-      options: ["Male", "Female"],
-      value: "Male"
+      label: "Form of organization",
+      name: "radio",
+      options: ["Corporation", "Trust", "Association", "Other"],
+      value: "Corporation"
     },
     {
       type: "date",
-      label: "DOB",
-      name: "dob",
-      placeholder:"Select date of birth",
+      label: "Start Date",
+      name: "date",
+      placeholder:"Select date",
       validations: [
         {
           name: "required",
           validator: Validators.required,
-          message: "Date of Birth Required"
+          message: "Date is Required"
         }
       ]
     },
     {
       type: "select",
-      label: "Country",
-      name: "country",
-      value: "US",
-      options: ["US", "Canada", "UK", "China"]
+      label: "State",
+      name: "select",
+      value: "IL",
+      options: ["IL", "OH", "AL", "CA"]
     },
     {
       type: "checkbox",
-      label: "Accept Terms",
-      name: "term",
+      label: "Self-employed?",
+      name: "checkbox",
       value: true
     },
     {
