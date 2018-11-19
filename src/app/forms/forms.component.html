@@ -68,7 +68,7 @@
             <div class="card-body">
         
                 <form class="dynamic-form" [formGroup]="form" (submit)="onSubmit($event)">
-                    <div  *ngFor="let f of formDefination.fields" dynamicField [field]="f" [group]="form">
+                    <div  *ngFor="let f of formDefination.fields" dynamicField [field]="f" [group]="form" (valueChanged)="valueChangedWatch($event)">
                     </div>
                 </form>
 

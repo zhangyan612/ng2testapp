@@ -7,10 +7,21 @@ import { FieldConfig } from "../fields.interface";
   styles: []
 })
 export class InputComponent implements OnInit {
+  @Output() changed: EventEmitter<any> = new EventEmitter<any>();
 
   field: FieldConfig;
   group: FormGroup;
   constructor() {}
-  ngOnInit() {}
+  ngOnInit() {
+    // this.group.valueChanges.subscribe(val => {
+    //   this.changed.emit(val);
+    //   console.log(val)
+    // });
+  }
+
+  // ngOnChange() { // You can give any function name
+  //   console.log(this.group.value)
+  // }
+
 
 }

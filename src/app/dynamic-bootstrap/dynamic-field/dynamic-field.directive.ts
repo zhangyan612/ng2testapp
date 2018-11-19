@@ -19,6 +19,8 @@ import { DateComponent } from "../date/date.component";
 import { RadiobuttonComponent } from "../radiobutton/radiobutton.component";
 import { CheckboxComponent } from "../checkbox/checkbox.component";
 import { TextComponent } from "../text/text.component";
+import { debounceTime } from "rxjs/operators";
+import { Subscription } from "rxjs";
 
 const componentMapper = {
   input: InputComponent,
@@ -35,8 +37,13 @@ const componentMapper = {
 export class DynamicFieldDirective implements OnInit {
   @Input() field: FieldConfig;
   @Input() group: FormGroup;
-  @Output() elementClicked: EventEmitter<any> = new EventEmitter<any>();
+  //@Output() elementClicked: EventEmitter<any> = new EventEmitter<any>();
+  @Output() valueChanged: EventEmitter<any> = new EventEmitter<any>();
+
   componentRef: ComponentRef<any>;
+  valueChangeDelay = 1000;
+  private subscription: Subscription;
+  subscribed: boolean = false;
 
   constructor(
     private resolver: ComponentFactoryResolver,
@@ -62,9 +69,35 @@ export class DynamicFieldDirective implements OnInit {
     this.componentRef = this.container.createComponent(factory); // create component
     this.componentRef.instance.field = this.field;
     this.componentRef.instance.group = this.group;
-    console.log('ngOnInit')
+
+    if(!this.subscribed){
+      console.log('ngOnInit')
+      //debugger
+      // this.subscription = this.group.valueChanges.pipe(
+      //   debounceTime(this.valueChangeDelay))
+      //   .subscribe(val => {
+      //     this.valueChanged.emit(val);
+      //     //console.log(val)
+      //     this.subscribed = true;
+      // });
+  
+  
+    }
+    // this.group.valueChanges.pipe(
+    //   debounceTime(1000)
+    // ).subscribe(
+    //   value => this.valueChanged.emit(value)
+    // );
+
     //debugger
   }
+
+  
+  // ngOnDestroy(): void {
+  //   console.log('ngOnDestroy')
+
+  //   this.subscription.unsubscribe();
+  // }
 
   // ngOnChanges() {
   //   console.log('ngOnChanges')
@@ -89,10 +122,9 @@ export class DynamicFieldDirective implements OnInit {
   //   console.log('ngAfterViewChecked')
   // }
 
-
-  @HostListener('click',['$event']) onclick($event) {
-    //debugger;
-    this.elementClicked.emit(this.field);
-  }
+  // @HostListener('click',['$event']) onclick($event) {
+  //   //debugger;
+  //   this.elementClicked.emit(this.field);
+  // }
 
 }

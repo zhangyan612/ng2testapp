@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { FieldConfig } from '../dynamic-bootstrap/fields.interface';
 import { availableFields } from '../shared/fields-config';
 import { FormDefinition } from '../model/form-definition';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-forms',
@@ -27,7 +28,6 @@ export class FormsComponent implements OnInit {
     this.formPath = this.route.snapshot.paramMap.get('name');
     //this.formDataId = this.route.snapshot.paramMap.get('name');
 
-    //debugger
     // this.dataService.getFilter('forms','formPath', this.formPath).subscribe(
     //   f => {
     //     this.formDefination = f[0];
@@ -35,18 +35,6 @@ export class FormsComponent implements OnInit {
     //   },
     //   error => this.errorMessage = <any>error
     // );
-
-    // var getFormDefination = new Promise((resolve, reject) => {
-    //   this.dataService.getFilter('forms','formPath', this.formPath)
-    //       .subscribe(data => {
-    //         resolve(data);
-    //       }, error => reject(error));
-    // });
-    
-    // getFormDefination.then(response => {
-    //   this.formDefination = response[0];
-    //   this.form = this.createControl(this.formDefination.fields);
-    // })
 
     router.events.subscribe((val) => {
       // see also       
@@ -57,16 +45,25 @@ export class FormsComponent implements OnInit {
         var id = this.route.snapshot.paramMap.get('id');
 
         console.log('route changed to:' + this.formPath)
-        //debugger
-        this.dataService.getFilter('forms','formPath', this.formPath).subscribe(
-          f => {
-            this.formDefination = f[0];
-            this.form = this.createControl(this.formDefination.fields);
-          },
-          error => this.errorMessage = <any>error
-        );
+      
+  
+        var getFormDefination = new Promise((resolve, reject) => {
+          this.dataService.getFilter('forms','formPath', this.formPath)
+              .subscribe(data => {
+                resolve(data);
+              }, error => reject(error));
+        });
+        
+        getFormDefination.then(response => {
+          this.formDefination = response[0];
+          this.form = this.createControl(this.formDefination.fields);
 
-
+          this.form.valueChanges.pipe(
+            debounceTime(1000))
+            .subscribe(val => {
+              this.valueChangedWatcher(val);
+          });
+        })
 
       }
     });
@@ -85,16 +82,31 @@ export class FormsComponent implements OnInit {
       },
       error => this.errorMessage = <any>error
     );
-    
+
     // this.route.url.subscribe(url =>{
     //   debugger
     //   console.log(url);
     // });
- 
+        // this.form.get('line4').valueChanges.subscribe(
+        //   value => console.log('value changed' + value) //this.setNotification(value)
+        // );  
   }
 
+  valueChangedWatcher(formData) {
+    console.log(formData);
+    if(formData.line4){
+      formData.line5 = +formData.line4 + 1000;
+      this.form.setValue(formData);
+    }
+    // formData.line5 = +formData.line4 + 1000;
+
+    // this.form.setValue(formData);
+  }
+
+  
   // ngOnChange(){
   //   console.log('ngOnChange');
+  //   debugger
   // }
 
   saveForm() {
