@@ -114,11 +114,16 @@
 
             <div class="form-group" *ngIf='selected.type == "radiobutton" || selected.type == "select"'>
               <label>Options</label>
-              <div *ngFor="let option of selected.options; let i = index">
+              <p *ngFor="let option of selected.options; let i = index">
                   <input type="text" class="form-control form-control-sm" [ngModel]="option" (change)="onOptionChange($event, i)">
                    <!-- [(ngModel)]="selected.options[i]"> -->
-              </div>
- 
+              </p>
+              <button class="btn btn-outline-primary btn-sm"
+              type="button"
+              [disabled]="!selected.options[selected.options.length - 1]"
+              (click)="addMoreOption()">
+                Add  
+              </button>
             </div>
 
 
@@ -160,5 +165,5 @@
   </div>
 </div>
 
-
+<p></p>
 <p>{{formDefination | json}}</p>

@@ -177,9 +177,22 @@ export class DesignerComponent implements OnInit {
   }
 
   onOptionChange($event, i){
-    this.selected.options[i] = $event.target.value;
+    var value = $event.target.value;
+    
+    // not remove for now
+    // if(!value){
+    //   this.selected.options = this.selected.options.splice(i, 1);
+    // }else{
+    //   this.selected.options[i] = value;
+    // }
+
+    this.selected.options[i] = value;
+
   }
 
+  addMoreOption(){
+    this.selected.options.push('');
+  }
 
   // ngOnChanges() {
   //   if (this.form) {
