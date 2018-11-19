@@ -9,17 +9,17 @@ import "ag-grid-community";
   styleUrls: ['./data-grid.component.css']
 })
 export class DataGridComponent {
-  private gridApi;
-  private gridColumnApi;
-  private rowData: any[];
-  private columnDefs;
-  private rowSelection;
-  private pinnedTopRowData;
-  private pinnedBottomRowData;
-  private autoGroupColumnDef;
-  private rowGroupPanelShow;
-  private pivotPanelShow;
-  private defaultColDef;
+  gridApi;
+  gridColumnApi;
+  rowData: any[];
+  columnDefs;
+  rowSelection;
+  pinnedTopRowData;
+  pinnedBottomRowData;
+  autoGroupColumnDef;
+  rowGroupPanelShow;
+  pivotPanelShow;
+  defaultColDef;
 
   errorMessage: string;
 

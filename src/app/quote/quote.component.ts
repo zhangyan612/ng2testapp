@@ -88,7 +88,7 @@ export class QuoteComponent implements OnInit {
     this.regConfig = this.fields;
   }
 
-  addConfig(data: FieldConfig[] ) {
+  addConfig() {
 
     let additional = {
       id: 2,
