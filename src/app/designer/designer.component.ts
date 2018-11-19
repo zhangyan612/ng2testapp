@@ -176,6 +176,10 @@ export class DesignerComponent implements OnInit {
     //this.selected.name = 
   }
 
+  onOptionChange($event, i){
+    this.selected.options[i] = $event.target.value;
+  }
+
 
   // ngOnChanges() {
   //   if (this.form) {

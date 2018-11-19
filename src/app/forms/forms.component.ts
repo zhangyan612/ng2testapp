@@ -39,7 +39,7 @@ export class FormsComponent implements OnInit {
     router.events.subscribe((val) => {
       // see also       
       //console.log('route changed ' + val) 
-      if(val instanceof NavigationEnd){
+      if(val instanceof NavigationEnd) {
 
         this.formPath = this.route.snapshot.paramMap.get('name');
         var id = this.route.snapshot.paramMap.get('id');
@@ -72,6 +72,7 @@ export class FormsComponent implements OnInit {
   }
 
   ngOnInit() {
+    
     // debugger
     this.form = this.createControl(this.formDefination.fields);
 
