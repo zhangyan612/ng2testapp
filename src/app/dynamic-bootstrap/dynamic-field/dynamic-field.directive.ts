@@ -37,13 +37,9 @@ const componentMapper = {
 export class DynamicFieldDirective implements OnInit {
   @Input() field: FieldConfig;
   @Input() group: FormGroup;
-  //@Output() elementClicked: EventEmitter<any> = new EventEmitter<any>();
-  @Output() valueChanged: EventEmitter<any> = new EventEmitter<any>();
 
   componentRef: ComponentRef<any>;
   valueChangeDelay = 1000;
-  private subscription: Subscription;
-  subscribed: boolean = false;
 
   constructor(
     private resolver: ComponentFactoryResolver,
@@ -69,25 +65,6 @@ export class DynamicFieldDirective implements OnInit {
     this.componentRef = this.container.createComponent(factory); // create component
     this.componentRef.instance.field = this.field;
     this.componentRef.instance.group = this.group;
-
-    if(!this.subscribed){
-      console.log('ngOnInit')
-      //debugger
-      // this.subscription = this.group.valueChanges.pipe(
-      //   debounceTime(this.valueChangeDelay))
-      //   .subscribe(val => {
-      //     this.valueChanged.emit(val);
-      //     //console.log(val)
-      //     this.subscribed = true;
-      // });
-  
-  
-    }
-    // this.group.valueChanges.pipe(
-    //   debounceTime(1000)
-    // ).subscribe(
-    //   value => this.valueChanged.emit(value)
-    // );
 
     //debugger
   }

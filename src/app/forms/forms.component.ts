@@ -72,7 +72,6 @@ export class FormsComponent implements OnInit {
   }
 
   ngOnInit() {
-    //this.fields = availableFields;
     // debugger
     this.form = this.createControl(this.formDefination.fields);
 
@@ -83,13 +82,6 @@ export class FormsComponent implements OnInit {
       error => this.errorMessage = <any>error
     );
 
-    // this.route.url.subscribe(url =>{
-    //   debugger
-    //   console.log(url);
-    // });
-        // this.form.get('line4').valueChanges.subscribe(
-        //   value => console.log('value changed' + value) //this.setNotification(value)
-        // );  
   }
 
   valueChangedWatcher(formData) {
@@ -98,11 +90,7 @@ export class FormsComponent implements OnInit {
       formData.line5 = +formData.line4 + 1000;
       this.form.setValue(formData);
     }
-    // formData.line5 = +formData.line4 + 1000;
-
-    // this.form.setValue(formData);
   }
-
   
   // ngOnChange(){
   //   console.log('ngOnChange');
