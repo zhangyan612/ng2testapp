@@ -26,8 +26,7 @@ export class AlertComponent {
 
         // add alert to array
         this.alerts.push(alert);
-        //debugger
-        setTimeout(() => alert.dismissed = true, 2000);
+        setTimeout(() => alert.dismissed = true, 5000);
     });
   }
 
