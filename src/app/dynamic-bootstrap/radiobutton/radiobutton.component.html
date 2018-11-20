@@ -1,10 +1,12 @@
-<div [formGroup]="group">
-    <label>{{field.label}}</label>
+<div  class="row" [formGroup]="group">
+    <label class="col-md-4 col-form-label">{{field.label}}</label>
+    <div class="col-md-8">
 
-    <div class="radio" *ngFor="let item of field.options">
-        <label>
-         <input type="radio" [value]="item" [formControlName]="field.name">
-         {{item}}
-        </label>
+        <div class="radio" *ngFor="let item of field.options">
+            <label>
+            <input type="radio" [value]="item" [formControlName]="field.name">
+            {{item}}
+            </label>
+        </div>
     </div>
 </div>

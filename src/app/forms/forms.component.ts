@@ -6,6 +6,7 @@ import { FieldConfig } from '../dynamic-bootstrap/fields.interface';
 import { availableFields } from '../shared/fields-config';
 import { FormDefinition } from '../model/form-definition';
 import { debounceTime } from 'rxjs/operators';
+import { AlertService } from '../services/alert.service';
 
 @Component({
   selector: 'app-forms',
@@ -23,7 +24,7 @@ export class FormsComponent implements OnInit {
   sideBar = [];
 
   constructor(private route: ActivatedRoute, private router: Router,
-    private dataService: DataService, private fb: FormBuilder) 
+    private dataService: DataService, private fb: FormBuilder, private alertService: AlertService) 
   { 
     this.formPath = this.route.snapshot.paramMap.get('name');
     //this.formDataId = this.route.snapshot.paramMap.get('name');
@@ -58,6 +59,15 @@ export class FormsComponent implements OnInit {
           this.formDefination = response[0];
           this.form = this.createControl(this.formDefination.fields);
 
+          if(id){
+            this.getFormData(this.formDefination.formPath, this.formDefination.id).then(res => {
+              console.log(res)
+              if(res) {
+                this.form.setValue(res[0])
+              }
+            });  
+          }
+
           this.form.valueChanges.pipe(
             debounceTime(1000))
             .subscribe(val => {
@@ -68,7 +78,15 @@ export class FormsComponent implements OnInit {
       }
     });
 
+  }
 
+  getFormData(formName, id) {
+    return new Promise((resolve, reject) => {
+      this.dataService.getById(formName, id)
+          .subscribe(data => {
+            resolve(data);
+          }, error => reject(error));
+    });
   }
 
   ngOnInit() {
@@ -103,6 +121,17 @@ export class FormsComponent implements OnInit {
     console.log(this.formPath);
     console.log(this.form.value);
 
+    // save the form
+    this.dataService.create(this.formPath, this.form.value).subscribe(
+      response => {
+        console.log(response)
+        this.alertService.success("Form is saved");
+      },
+      error => {
+        this.errorMessage = <any>error;
+        this.alertService.error(this.errorMessage);
+      }
+    );
   }
 
   onSubmit(event: Event) {

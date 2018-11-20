@@ -33,7 +33,7 @@ export class DataService {
   }
 
   getById(url: string, id: number): Observable<any> {
-    let params = new HttpParams().set("productId", id.toString());
+    let params = new HttpParams().set("id", id.toString());
     
     return this.http.get<any>(this.apiUrl + url, {params}).pipe(
         tap(data => console.log('server returns: '+ JSON.stringify(data))),
