@@ -7,6 +7,7 @@ import { availableFields } from '../shared/fields-config';
 import { FormDefinition } from '../model/form-definition';
 import { debounceTime } from 'rxjs/operators';
 import { AlertService } from '../services/alert.service';
+import { flattenStyles } from '@angular/platform-browser/src/dom/dom_renderer';
 
 @Component({
   selector: 'app-forms',
@@ -22,9 +23,10 @@ export class FormsComponent implements OnInit {
   formDefination : FormDefinition
   = { formName:'', formPath:'', fields:[] } as FormDefinition
   sideBar = [];
+  existing: boolean = false;
 
   constructor(private route: ActivatedRoute, private router: Router,
-    private dataService: DataService, private fb: FormBuilder, private alertService: AlertService) 
+    private dataService: DataService, private fb: FormBuilder, private alertService: AlertService)
   { 
     this.formPath = this.route.snapshot.paramMap.get('name');
     //this.formDataId = this.route.snapshot.paramMap.get('name');
@@ -60,12 +62,16 @@ export class FormsComponent implements OnInit {
           this.form = this.createControl(this.formDefination.fields);
 
           if(id){
-            this.getFormData(this.formDefination.formPath, this.formDefination.id).then(res => {
-              console.log(res)
-              if(res) {
-                this.form.setValue(res[0])
-              }
-            });  
+
+            this.dataService.getById(this.formDefination.formPath, +id)
+              .subscribe(data => {
+                if(data.length > 0) {
+                  delete data[0].id;
+                  this.form.setValue(data[0]);
+                  this.existing = true;
+                }
+              }, error => this.errorMessage = <any>error);
+
           }
 
           this.form.valueChanges.pipe(
@@ -80,14 +86,6 @@ export class FormsComponent implements OnInit {
 
   }
 
-  getFormData(formName, id) {
-    return new Promise((resolve, reject) => {
-      this.dataService.getById(formName, id)
-          .subscribe(data => {
-            resolve(data);
-          }, error => reject(error));
-    });
-  }
 
   ngOnInit() {
     
@@ -121,17 +119,35 @@ export class FormsComponent implements OnInit {
     console.log(this.formPath);
     console.log(this.form.value);
 
-    // save the form
-    this.dataService.create(this.formPath, this.form.value).subscribe(
-      response => {
-        console.log(response)
-        this.alertService.success("Form is saved");
-      },
-      error => {
-        this.errorMessage = <any>error;
-        this.alertService.error(this.errorMessage);
-      }
-    );
+    // if form exist, update
+    // otherwise save
+    //debugger
+    // if(this.existing){
+    //   console.log('Updating record')
+    //   this.dataService.update(this.formPath, this.form.value).subscribe(
+    //     response => {
+    //       console.log(response)
+    //       this.alertService.success("Form is updated");
+    //     },
+    //     error => {
+    //       this.errorMessage = <any>error;
+    //       this.alertService.error(error);
+    //     }
+    //   );
+    // }else{
+      // save the form
+      console.log('Creating record')
+      this.dataService.create(this.formPath, this.form.value).subscribe(
+        response => {
+          console.log(response)
+          this.alertService.success("Form is saved");
+        },
+        error => {
+          this.errorMessage = <any>error;
+          this.alertService.error(error);
+        }
+      );
+    // }
   }
 
   onSubmit(event: Event) {
