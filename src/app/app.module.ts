@@ -30,6 +30,8 @@ import { DataGridComponent } from './data-grid/data-grid.component';
 import { SafeHtmlPipe } from './shared/safe-html.pipe';
 import { FormsComponent } from './forms/forms.component';
 import { TextComponent } from './dynamic-bootstrap/text/text.component';
+import { AlertComponent } from './alert/alert.component';
+import { AlertService } from './services/alert.service';
 
 @NgModule({
   declarations: [
@@ -54,7 +56,8 @@ import { TextComponent } from './dynamic-bootstrap/text/text.component';
     DesignerComponent,
     DataGridComponent,
     SafeHtmlPipe,
-    FormsComponent
+    FormsComponent,
+    AlertComponent
   ],
   imports: [
     BrowserModule,
@@ -81,7 +84,9 @@ import { TextComponent } from './dynamic-bootstrap/text/text.component';
       { path: '**', redirectTo: 'home', pathMatch: 'full'}
     ])
   ],
-  providers: [],
+  providers: [
+    AlertService
+  ],
   bootstrap: [AppComponent],
   entryComponents: [
     InputComponent,

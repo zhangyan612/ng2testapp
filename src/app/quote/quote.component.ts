@@ -8,6 +8,7 @@ import { DynamicFormComponent } from '../dynamic-bootstrap/dynamic-form/dynamic-
 import { FieldConfig } from "../dynamic-bootstrap/fields.interface";
 import { quoteFields, navLinks, availableFields } from '../shared/fields-config';
 import { Router } from '@angular/router';
+import { AlertService } from '../services/alert.service';
 
 function emailMatcher(c: AbstractControl): { [key: string]: boolean } | null {
   const emailControl = c.get('email');
@@ -48,7 +49,7 @@ export class QuoteComponent implements OnInit {
   regConfig: FieldConfig[] = [];
   fields : FieldConfig[] = [];
 
-  constructor(private dataService: DataService, private fb: FormBuilder, private router: Router) {
+  constructor(private dataService: DataService, private fb: FormBuilder, private router: Router, private alertService: AlertService) {
     
   }
   
@@ -111,7 +112,6 @@ export class QuoteComponent implements OnInit {
     }
 
     this.regConfig.push(additional);
-
   }
 
   printCurrent(){
@@ -130,9 +130,6 @@ export class QuoteComponent implements OnInit {
     });
 
     allFields.then(response => this.router.navigate(['/home']))
-
-
-
   }
 
 
@@ -142,7 +139,15 @@ export class QuoteComponent implements OnInit {
     this.dataService.saveList('fields', this.regConfig).subscribe(
       error => this.errorMessage = <any>error
     );
+  }
 
+
+  success(message: string) { 
+      this.alertService.success(message);
+  }
+
+  error(message: string) {
+      this.alertService.error(message);
   }
 
 

@@ -4,8 +4,8 @@ import {  Validators } from '@angular/forms';
 
 
 export var navLinks : any[] = [
-  { text: 'Quote', path: '/quote' },
-  { text: 'Product List', path: '/products' },    
+  { text: 'Test', path: '/quote' },
+  { text: 'Test Product', path: '/products' },    
   { text: 'Run SQL', path: '/sql' },
   { text: 'Designer', path: '/designer' },
   { text: 'Forms', path: '/forms/test' },
