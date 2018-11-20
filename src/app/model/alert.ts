@@ -3,7 +3,8 @@ export class Alert {
     message: string;
     alertId: string;
     keepAfterRouteChange: boolean;
-
+    dismissed : boolean;
+    
     constructor(init?:Partial<Alert>) {
         Object.assign(this, init);
     }

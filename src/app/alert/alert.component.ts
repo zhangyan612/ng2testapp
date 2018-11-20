@@ -11,20 +11,24 @@ export class AlertComponent {
   @Input() id: string;
 
   alerts: Alert[] = [];
+  staticAlertClosed = false;
 
   constructor(private alertService: AlertService) { }
 
   ngOnInit() {
-      this.alertService.getAlert(this.id).subscribe((alert: Alert) => {
-          if (!alert.message) {
-              // clear alerts when an empty alert is received
-              this.alerts = [];
-              return;
-          }
 
-          // add alert to array
-          this.alerts.push(alert);
-      });
+    this.alertService.getAlert(this.id).subscribe((alert: Alert) => {
+        if (!alert.message) {
+            // clear alerts when an empty alert is received
+            this.alerts = [];
+            return;
+        }
+
+        // add alert to array
+        this.alerts.push(alert);
+        //debugger
+        setTimeout(() => alert.dismissed = true, 2000);
+    });
   }
 
   removeAlert(alert: Alert) {
