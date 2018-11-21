@@ -8,7 +8,7 @@ import { catchError, tap, map } from 'rxjs/operators'
   providedIn: 'root'
 })
 export class DataService {
-  private apiUrl = 'http://localhost:57602/api/'  ;  
+  private apiUrl = 'http://localhost:57602/api/';
   //private apiUrl = 'https://my-json-server.typicode.com/zhangyan612/jsonfile/'
 
   private header = new HttpHeaders({'Content-Type':  'application/json'})

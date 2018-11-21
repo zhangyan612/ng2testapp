@@ -70,6 +70,7 @@ import { AlertService } from './services/alert.service';
     RouterModule.forRoot([
       { path: 'forms/:name/:id', component: FormsComponent },
       { path: 'forms/:name', component: FormsComponent },
+      { path: 'datagrid/:name', component: DataGridComponent },
       { path: 'datagrid', component: DataGridComponent },
       { path: 'designer', component: DesignerComponent },
       { path: 'sql', component: SqlComponent },

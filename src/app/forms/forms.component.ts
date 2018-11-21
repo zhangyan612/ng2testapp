@@ -73,7 +73,7 @@ export class FormsComponent implements OnInit {
               }, error => this.errorMessage = <any>error);
 
           }
-
+          //this.form.get()
           this.form.valueChanges.pipe(
             debounceTime(1000))
             .subscribe(val => {
@@ -103,10 +103,14 @@ export class FormsComponent implements OnInit {
 
   valueChangedWatcher(formData) {
     console.log(formData);
-    if(formData.line4){
+
+
+    if(formData.line4) {
       formData.line5 = +formData.line4 + 1000;
       this.form.setValue(formData);
     }
+
+
   }
   
   // ngOnChange(){
