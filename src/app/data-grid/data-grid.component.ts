@@ -38,6 +38,7 @@ export class DataGridComponent implements OnInit{
   errorMessage: string;
   formPath: string;
   formName: string;
+  getFormDefination: any;
 
   constructor(private dataService: DataService, private route: ActivatedRoute) {
 
@@ -112,15 +113,12 @@ export class DataGridComponent implements OnInit{
 
     this.formPath = this.route.snapshot.paramMap.get('name');
 
-    var getFormDefination = new Promise((resolve, reject) => {
+    this.getFormDefination = new Promise((resolve, reject) => {
       this.dataService.getFilter('forms','formPath', this.formPath)
           .subscribe(data => {
             resolve(data);
           }, error => reject(error));
     });
-    getFormDefination.then(response => {
-      this.updatecolumnDefs(response);
-    })
 
 
     // this.dataService.getFilter('forms','formPath', this.formPath).subscribe(
@@ -130,6 +128,12 @@ export class DataGridComponent implements OnInit{
     //   },
     //   error => this.errorMessage = <any>error
     // );
+
+    this.getFormDefination.then(response => {
+      debugger
+      this.updatecolumnDefs(response);
+  
+    })
 
     //var def = new ColumnDefination("Form Of Organization", "line4", 100)
     var def = new ColumnDefination("Total", "total", 100)
@@ -158,10 +162,6 @@ export class DataGridComponent implements OnInit{
     this.gridColumnApi = params.columnApi;
 
 
-    this.dataService.getAll(this.formPath)
-    .subscribe(data => {
-      this.rowData = data;
-    }, error => this.errorMessage = <any>error);
     
 
     // this.dataService.getExternal("https://raw.githubusercontent.com/ag-grid/ag-grid/master/packages/ag-grid-docs/src/olympicWinnersSmall.json").subscribe(
@@ -179,8 +179,18 @@ export class DataGridComponent implements OnInit{
     //       }, error => reject(error));
     // });
     
-    // getFormDefination.then(response => {
-    //   this.columnDefs = this.updatecolumnDefs(response);
+    // this.getFormDefination.then(response => {
+    //   debugger
+    //   this.updatecolumnDefs(response);
+
+      //this.gridApi.refreshHeader();
+
+      this.dataService.getAll(this.formPath)
+      .subscribe(data => {
+        this.rowData = data;
+      }, error => this.errorMessage = <any>error);
+  
+
     // })
 
     params.api.sizeColumnsToFit();
@@ -195,7 +205,7 @@ export class DataGridComponent implements OnInit{
 
   updatecolumnDefs(data){
     debugger
-    for(let i of data.fields) {
+    for(let i of data[0].fields) {
       if(i.type =='input' || i.type == 'select' || i.type =='radiobutton'){
         var def = new ColumnDefination(i.label, i.name, 100)
         this.columnDefs.push(def);
