@@ -142,7 +142,14 @@
     >
 </ag-grid-angular> -->
 
-<h2>Form Data</h2>
+<h2>Data for {{formName}}</h2>
+
+<p>            
+    <a class="btn btn-sm btn-outline-success" routerLink="/forms/{{formPath}}">
+    <i class="fa fa-plus" aria-hidden="true"></i>
+        Create New
+    </a>
+</p>
 <!-- <p style="margin-top: 100px;"></p> -->
 <p></p>
 <!-- <ag-grid-angular
@@ -174,5 +181,9 @@
 
 <ag-grid-angular style="height: 600px;" id="myGrid" class="ag-theme-balham"
   [rowData]="rowData"
-  [columnDefs]="columnDefs">
+  [columnDefs]="columnDefs"
+  [enableSorting]="true"
+  [enableFilter]="true"
+  [enableColResize]="true">
+  
 </ag-grid-angular>

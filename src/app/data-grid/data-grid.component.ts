@@ -45,7 +45,6 @@ export class DataGridComponent {
     let columnDefinitions = [];
 
     data.map(object => {
-
       Object
         .keys(object)
         .map(key => {
@@ -65,8 +64,6 @@ export class DataGridComponent {
     )
     return columnDefinitions;
   }
-
-
 
   constructor(private dataService: DataService, private route: ActivatedRoute) {
 
@@ -154,10 +151,23 @@ export class DataGridComponent {
 
     this.formPath = this.route.snapshot.paramMap.get('name');
     
+
+    this.dataService.getFilter('forms','formPath', this.formPath)
+        .subscribe(data => {
+          console.log(data);
+          this.formName =  data[0].formName;
+          this.formPath =  data[0].formPath;
+
+
+
+    }, error => this.errorMessage = <any>error);
+
+
     this.dataService.getAll(this.formPath)
     .subscribe(data => {
       this.rowData = data;
 
+      //generate columns from row data
       if (this.rowData) {
         this.columnDefs = this.generateColumns(this.rowData);
       }
