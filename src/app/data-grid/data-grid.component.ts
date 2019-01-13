@@ -22,36 +22,64 @@ class ColumnDefination {
   templateUrl: './data-grid.component.html',
   styleUrls: ['./data-grid.component.css']
 })
-export class DataGridComponent implements OnInit{
-  gridApi;
-  gridColumnApi;
+export class DataGridComponent {
+  // gridApi;
+  // gridColumnApi;
   rowData: any[];
   columnDefs;
-  rowSelection;
-  pinnedTopRowData;
-  pinnedBottomRowData;
-  autoGroupColumnDef;
-  rowGroupPanelShow;
-  pivotPanelShow;
-  defaultColDef;
+  // rowSelection;
+  // pinnedTopRowData;
+  // pinnedBottomRowData;
+  // autoGroupColumnDef;
+  // rowGroupPanelShow;
+  // pivotPanelShow;
+  // defaultColDef;
+
 
   errorMessage: string;
   formPath: string;
   formName: string;
   getFormDefination: any;
 
+  generateColumns(data: any[]) {
+    let columnDefinitions = [];
+
+    data.map(object => {
+
+      Object
+        .keys(object)
+        .map(key => {
+          let mappedColumn = {
+            headerName: key.toUpperCase(),
+            field: key
+          }
+
+          columnDefinitions.push(mappedColumn);
+        })
+    })
+    //Remove duplicate columns
+    columnDefinitions = columnDefinitions.filter((column, index, self) =>
+      index === self.findIndex((colAtIndex) => (
+        colAtIndex.field === column.field
+      ))
+    )
+    return columnDefinitions;
+  }
+
+
+
   constructor(private dataService: DataService, private route: ActivatedRoute) {
 
-    this.columnDefs = [
-      {
-        width: 40,
-        checkboxSelection: function(params) {
-          return params.columnApi.getRowGroupColumns().length === 0;
-        },
-        headerCheckboxSelection: function(params) {
-          return params.columnApi.getRowGroupColumns().length === 0;
-        }
-      }
+    // this.columnDefs = [
+    //   {
+    //     width: 40,
+    //     checkboxSelection: function(params) {
+    //       return params.columnApi.getRowGroupColumns().length === 0;
+    //     },
+    //     headerCheckboxSelection: function(params) {
+    //       return params.columnApi.getRowGroupColumns().length === 0;
+    //     }
+    //   }
       // {
       //   headerName: "Age",
       //   field: "age",
@@ -107,18 +135,42 @@ export class DataGridComponent implements OnInit{
       //   width: 100,
       //   filterParams: { newRowsAction: "keep" }
       // }
-    ];
+    //];
     
-    debugger
+    // this.rowData = [
+    //   {
+    //     "id": "12345",
+    //     "firstName": "Mark",
+    //     "lastName": "Mcfakeson"
+    //   },
+    //   {
+    //     "id": "12345"
+    //   },
+    //   {
+    //     "id": "67890",
+    //     "hurray": "hurrayValue"
+    //   }
+    // ];
 
     this.formPath = this.route.snapshot.paramMap.get('name');
+    
+    this.dataService.getAll(this.formPath)
+    .subscribe(data => {
+      this.rowData = data;
 
-    this.getFormDefination = new Promise((resolve, reject) => {
-      this.dataService.getFilter('forms','formPath', this.formPath)
-          .subscribe(data => {
-            resolve(data);
-          }, error => reject(error));
-    });
+      if (this.rowData) {
+        this.columnDefs = this.generateColumns(this.rowData);
+      }
+  
+    }, error => this.errorMessage = <any>error);
+
+
+    // this.getFormDefination = new Promise((resolve, reject) => {
+    //   this.dataService.getFilter('forms','formPath', this.formPath)
+    //       .subscribe(data => {
+    //         resolve(data);
+    //       }, error => reject(error));
+    // });
 
 
     // this.dataService.getFilter('forms','formPath', this.formPath).subscribe(
@@ -129,89 +181,84 @@ export class DataGridComponent implements OnInit{
     //   error => this.errorMessage = <any>error
     // );
 
-    this.getFormDefination.then(response => {
-      debugger
-      this.updatecolumnDefs(response);
-  
-    })
-
-    //var def = new ColumnDefination("Form Of Organization", "line4", 100)
-    var def = new ColumnDefination("Total", "total", 100)
-    this.columnDefs.push(def);
-    // this.gridApi.edit.on.beginCellEdit($scope, function(rowEntity, colDef) { ... });
-
-    this.rowSelection = "multiple";
-    this.rowGroupPanelShow = "always";
-    this.pivotPanelShow = "always";
-    this.defaultColDef = {
-      editable: true,
-      enableValue: true
-    };
-
-    
-  }
-
-  ngOnInit(): void {
-    debugger
-
-  }
-
-
-  onGridReady(params) {
-    this.gridApi = params.api;
-    this.gridColumnApi = params.columnApi;
-
-
-    
-
-    // this.dataService.getExternal("https://raw.githubusercontent.com/ag-grid/ag-grid/master/packages/ag-grid-docs/src/olympicWinnersSmall.json").subscribe(
-    //   data => {
-    //     this.rowData = data;
-    //   },
-    //   error => this.errorMessage = <any>error
-    // );
-
-
-    // var getFormDefination = new Promise((resolve, reject) => {
-    //   this.dataService.getFilter('forms','formPath', this.formPath)
-    //       .subscribe(data => {
-    //         resolve(data);
-    //       }, error => reject(error));
-    // });
-    
     // this.getFormDefination.then(response => {
     //   debugger
     //   this.updatecolumnDefs(response);
-
-      //this.gridApi.refreshHeader();
-
-      this.dataService.getAll(this.formPath)
-      .subscribe(data => {
-        this.rowData = data;
-      }, error => this.errorMessage = <any>error);
   
-
     // })
 
-    params.api.sizeColumnsToFit();
+    //var def = new ColumnDefination("Form Of Organization", "line4", 100)
+    // var def = new ColumnDefination("Total", "total", 100)
+    // this.columnDefs.push(def);
+    // this.gridApi.edit.on.beginCellEdit($scope, function(rowEntity, colDef) { ... });
 
-    // var cellDefs = this.gridApi.cellValueChanged();
-    // cellDefs.forEach( function(cellDef) {
-    //     console.log(cellDef.rowIndex);
-    //     console.log(cellDef.column.getId());
-    //     console.log(cellDef.floating);
-    // });
+    // this.rowSelection = "multiple";
+    // this.rowGroupPanelShow = "always";
+    // this.pivotPanelShow = "always";
+    // this.defaultColDef = {
+    //   editable: true,
+    //   enableValue: true
+    // };
+
+    
   }
 
-  updatecolumnDefs(data){
-    debugger
-    for(let i of data[0].fields) {
-      if(i.type =='input' || i.type == 'select' || i.type =='radiobutton'){
-        var def = new ColumnDefination(i.label, i.name, 100)
-        this.columnDefs.push(def);
-      }
-    }
-  }
+  // ngOnInit(): void {
+  //   debugger
+
+  // }
+
+
+  // onGridReady(params) {
+  //   this.gridApi = params.api;
+  //   this.gridColumnApi = params.columnApi;
+
+
+    
+
+  //   // this.dataService.getExternal("https://raw.githubusercontent.com/ag-grid/ag-grid/master/packages/ag-grid-docs/src/olympicWinnersSmall.json").subscribe(
+  //   //   data => {
+  //   //     this.rowData = data;
+  //   //   },
+  //   //   error => this.errorMessage = <any>error
+  //   // );
+
+
+  //   // var getFormDefination = new Promise((resolve, reject) => {
+  //   //   this.dataService.getFilter('forms','formPath', this.formPath)
+  //   //       .subscribe(data => {
+  //   //         resolve(data);
+  //   //       }, error => reject(error));
+  //   // });
+    
+  //   // this.getFormDefination.then(response => {
+  //   //   debugger
+  //   //   this.updatecolumnDefs(response);
+
+  //     //this.gridApi.refreshHeader();
+  
+
+  //   // })
+
+  //   params.api.sizeColumnsToFit();
+
+  //   // var cellDefs = this.gridApi.cellValueChanged();
+  //   // cellDefs.forEach( function(cellDef) {
+  //   //     console.log(cellDef.rowIndex);
+  //   //     console.log(cellDef.column.getId());
+  //   //     console.log(cellDef.floating);
+  //   // });
+  // }
+
+  // updatecolumnDefs(data){
+  //   debugger
+  //   for(let i of data[0].fields) {
+  //     if(i.type =='input' || i.type == 'select' || i.type =='radiobutton'){
+  //       var def = new ColumnDefination(i.label, i.name, 100)
+  //       this.columnDefs.push(def);
+  //     }
+  //   }
+  // }
 
   
 
