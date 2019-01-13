@@ -55,6 +55,7 @@ export class DataGridComponent {
       }
     }); 
     
+    // method based on data key
     // data.map(object => {
     //   Object
     //     .keys(object)
@@ -74,6 +75,30 @@ export class DataGridComponent {
     // )
 
     return columnDefinitions;
+  }
+
+  parseObjectData(data: any[]) {
+
+    data.forEach(function (obj) {
+      Object
+        .keys(obj)
+        .map(key => {
+
+          let value = obj[key];
+          if(typeof value === 'object' && value != null){
+
+            // prase date assumping that's only object we have
+            // if(value.hasOwnProperty('year')){
+            //   console.log(value)
+            // }
+
+            obj[key] = value.month +'/' + value.day +'/'+ value.year;
+            console.log(value);
+
+          }
+        })
+    })
+    return data;
   }
 
   constructor(private dataService: DataService, private route: ActivatedRoute) {
@@ -164,19 +189,17 @@ export class DataGridComponent {
     
     this.dataService.getFilter('forms','formPath', this.formPath)
         .subscribe(data => {
-          console.log(data);
           this.formName =  data[0].formName;
           this.formPath =  data[0].formPath;
 
           if(data[0].fields){
             this.columnDefs = this.generateColumns(data[0].fields);
           }
-
     }, error => this.errorMessage = <any>error);
 
     this.dataService.getAll(this.formPath)
     .subscribe(data => {
-      this.rowData = data;
+      this.rowData = this.parseObjectData(data);
 
       //generate columns from row data
       // if (this.rowData) {
