@@ -159,8 +159,6 @@
             Delete
     </button>
 
-
-
     <button class="btn btn-sm btn-outline-success" (click)="onBtExport()" style="float:right;">
         <i class="fa fa-file-excel-o" aria-hidden="true"></i> Export to CSV
     </button>
@@ -193,9 +191,7 @@
     >
   </ag-grid-angular> -->
 
-
-
-<ag-grid-angular style="height: 600px;" id="myGrid" class="ag-theme-balham"
+<ag-grid-angular style="height: 400px;" id="myGrid" class="ag-theme-balham"
   [rowData]="rowData"
   [columnDefs]="columnDefs"
   [enableSorting]="true"
@@ -206,3 +202,9 @@
   (gridReady)="onGridReady($event)">
   
 </ag-grid-angular>
+
+<p></p>
+
+<h2>Reporting</h2>
+
+<div id="output"></div>

@@ -4,19 +4,20 @@ import { DataService } from '../services/data.service'
 import "ag-grid-community";
 import { ActivatedRoute } from "@angular/router";
 import { AlertService } from '../services/alert.service';
+import * as $ from 'jquery';
 
-class ColumnDefination {
-  headerName: string;
-  field: string;
-  width: number;
-  filterParams: object;
-  constructor(headerName: string, field: string, width:number, filterParams: any = { newRowsAction: "keep" }) {
-    this.headerName = headerName
-    this.field = field;
-    this.width = width;
-    this.filterParams = filterParams;
-  }
-}
+// class ColumnDefination {
+//   headerName: string;
+//   field: string;
+//   width: number;
+//   filterParams: object;
+//   constructor(headerName: string, field: string, width:number, filterParams: any = { newRowsAction: "keep" }) {
+//     this.headerName = headerName
+//     this.field = field;
+//     this.width = width;
+//     this.filterParams = filterParams;
+//   }
+// }
 
 @Component({
   selector: 'app-data-grid',
@@ -35,7 +36,6 @@ export class DataGridComponent {
   // rowGroupPanelShow;
   // pivotPanelShow;
   // defaultColDef;
-
 
   errorMessage: string;
   formPath: string;
@@ -244,10 +244,14 @@ export class DataGridComponent {
 
   }
 
-  // ngOnInit(): void {
-  //   debugger
-  // }
+  ngOnInit(): void {
 
+    $(document).ready(function(){
+      $("#output").html("Hello World");
+    });
+
+    
+  }
 
   onBtExport() {
     var params = {
@@ -370,4 +374,7 @@ export class DataGridComponent {
 //   return Datepicker;
 // }
 
+
+
+// Any reporting code
 
