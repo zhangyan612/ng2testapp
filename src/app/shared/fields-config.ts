@@ -9,7 +9,7 @@ export var navLinks : any[] = [
   { text: 'Run SQL', path: '/sql' },
   { text: 'Designer', path: '/designer' },
   { text: 'Forms', path: '/forms/test' },
-  { text: 'Data Grid', path: '/datagrid' }
+  { text: 'Data Grid', path: '/datagrid/test' }
 ]
 
 export const quoteFields: FieldConfig[] = [

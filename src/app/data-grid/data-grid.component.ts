@@ -3,6 +3,7 @@ import { DataService } from '../services/data.service'
 
 import "ag-grid-community";
 import { ActivatedRoute } from "@angular/router";
+import { AlertService } from '../services/alert.service';
 
 class ColumnDefination {
   headerName: string;
@@ -40,6 +41,7 @@ export class DataGridComponent {
   formPath: string;
   formName: string;
   formItemPath: string;
+  selectedItemId: number;
   //getFormDefination: any;
 
   generateColumns(data: any[]) {
@@ -96,7 +98,7 @@ export class DataGridComponent {
     return data;
   }
 
-  constructor(private dataService: DataService, private route: ActivatedRoute) {
+  constructor(private dataService: DataService, private route: ActivatedRoute, private alertService: AlertService) {
 
     this.formPath = this.route.snapshot.paramMap.get('name');
     
@@ -267,7 +269,22 @@ export class DataGridComponent {
 
   onSelectionChanged() {
     var selectedRows = this.gridApi.getSelectedRows();
-    this.formItemPath = this.formPath + '/' + selectedRows[0].id;
+    this.selectedItemId = selectedRows[0].id;
+    this.formItemPath = this.formPath + '/' + this.selectedItemId;
+  }
+
+  onItemDelete(){
+    //console.log(this.formItemPath)
+    this.dataService.delete(this.formItemPath).subscribe(
+      response => {
+        this.rowData = this.rowData.filter(obj => obj.id !== this.selectedItemId);
+        this.alertService.success("Data is deleted");
+      },
+      error => {
+        this.errorMessage = <any>error;
+        this.alertService.error(error);
+      }
+    );
   }
 
 

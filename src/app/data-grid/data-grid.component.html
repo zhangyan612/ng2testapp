@@ -154,11 +154,17 @@
             Edit
     </a>
 
+    <button class="btn btn-sm btn-outline-danger" *ngIf="formItemPath"  (click)="onItemDelete()">
+        <i class="fa fa-trash-o" aria-hidden="true"></i>
+            Delete
+    </button>
+
+
 
     <button class="btn btn-sm btn-outline-success" (click)="onBtExport()" style="float:right;">
         <i class="fa fa-file-excel-o" aria-hidden="true"></i> Export to CSV
     </button>
-    
+
 <!-- <p style="margin-top: 100px;"></p> -->
 <p></p>
 <!-- <ag-grid-angular

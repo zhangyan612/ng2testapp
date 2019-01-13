@@ -71,6 +71,13 @@ export class DataService {
       );
   }
 
+  delete(url: string): Observable<any> {
+    return this.http.delete(this.apiUrl + url, this.httpOptions).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+
   private handleError(err: HttpErrorResponse) {
     let errorMessage = ''
     if (err.error instanceof ErrorEvent){
