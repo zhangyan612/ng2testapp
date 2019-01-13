@@ -9,7 +9,6 @@ import * as $ from 'jquery';
 import { tipsData } from "../shared/fields-config";
 import 'pivottable/dist/pivot.min.js';
 // import 'pivottable/dist/pivot.min.css';
-
 // import 'pivottable/dist/plotly_renderers.min.js';
 
 //import * as pivotModule from 'pivottable';
@@ -26,6 +25,7 @@ import 'pivottable/dist/pivot.min.js';
 //     this.filterParams = filterParams;
 //   }
 // } npm install --save @types/pivottable
+
 
 @Component({
   selector: 'app-data-grid',
