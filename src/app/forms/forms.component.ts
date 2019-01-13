@@ -66,6 +66,7 @@ export class FormsComponent implements OnInit {
             this.dataService.getById(this.formDefination.formPath, +id)
               .subscribe(data => {
                 if(data.length > 0) {
+                  this.formId = data[0].id;
                   delete data[0].id;
                   this.form.setValue(data[0]);
                   this.existing = true;
@@ -122,7 +123,7 @@ export class FormsComponent implements OnInit {
     console.log('saveForm');
     console.log(this.formPath);
     console.log(this.form.value);
-
+    console.log(this.formId);
     // if form exist, update
     // otherwise save
     //debugger
@@ -140,17 +141,35 @@ export class FormsComponent implements OnInit {
     //   );
     // }else{
       // save the form
-      console.log('Creating record')
-      this.dataService.create(this.formPath, this.form.value).subscribe(
-        response => {
-          console.log(response)
-          this.alertService.success("Form is saved");
-        },
-        error => {
-          this.errorMessage = <any>error;
-          this.alertService.error(error);
-        }
-      );
+      if(this.existing) {
+        console.log('Updating record')
+        this.dataService.update(this.formPath, this.formId, this.form.value).subscribe(
+          response => {
+            console.log(response)
+            this.alertService.success("Form is updated");
+          },
+          error => {
+            this.errorMessage = <any>error;
+            this.alertService.error(error);
+          }
+        );
+      }
+      else {
+        console.log('Creating record')
+
+        this.dataService.create(this.formPath, this.form.value).subscribe(
+          response => {
+            console.log(response)
+            this.alertService.success("Form is saved");
+          },
+          error => {
+            this.errorMessage = <any>error;
+            this.alertService.error(error);
+          }
+        );
+  
+      }
+
     // }
   }
 

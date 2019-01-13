@@ -23,11 +23,11 @@ class ColumnDefination {
   styleUrls: ['./data-grid.component.css']
 })
 export class DataGridComponent {
-  // gridApi;
+  gridApi;
   // gridColumnApi;
   rowData: any[];
   columnDefs;
-  // rowSelection;
+  rowSelection;
   // pinnedTopRowData;
   // pinnedBottomRowData;
   // autoGroupColumnDef;
@@ -39,7 +39,8 @@ export class DataGridComponent {
   errorMessage: string;
   formPath: string;
   formName: string;
-  getFormDefination: any;
+  formItemPath: string;
+  //getFormDefination: any;
 
   generateColumns(data: any[]) {
     let columnDefinitions = [];
@@ -78,23 +79,17 @@ export class DataGridComponent {
   }
 
   parseObjectData(data: any[]) {
-
     data.forEach(function (obj) {
       Object
         .keys(obj)
         .map(key => {
-
           let value = obj[key];
           if(typeof value === 'object' && value != null){
-
             // prase date assumping that's only object we have
             // if(value.hasOwnProperty('year')){
             //   console.log(value)
             // }
-
             obj[key] = value.month +'/' + value.day +'/'+ value.year;
-            console.log(value);
-
           }
         })
     })
@@ -102,6 +97,31 @@ export class DataGridComponent {
   }
 
   constructor(private dataService: DataService, private route: ActivatedRoute) {
+
+    this.formPath = this.route.snapshot.paramMap.get('name');
+    
+    this.dataService.getFilter('forms','formPath', this.formPath)
+        .subscribe(data => {
+          this.formName =  data[0].formName;
+          this.formPath =  data[0].formPath;
+
+          if(data[0].fields){
+            this.columnDefs = this.generateColumns(data[0].fields);
+          }
+    }, error => this.errorMessage = <any>error);
+
+    this.dataService.getAll(this.formPath)
+    .subscribe(data => {
+      this.rowData = this.parseObjectData(data);
+
+      //generate columns from row data
+      // if (this.rowData) {
+      //   this.columnDefs = this.generateColumns(this.rowData);
+      // }
+  
+    }, error => this.errorMessage = <any>error);
+
+    this.rowSelection = "single";
 
     // this.columnDefs = [
     //   {
@@ -185,30 +205,6 @@ export class DataGridComponent {
     //   }
     // ];
 
-    this.formPath = this.route.snapshot.paramMap.get('name');
-    
-    this.dataService.getFilter('forms','formPath', this.formPath)
-        .subscribe(data => {
-          this.formName =  data[0].formName;
-          this.formPath =  data[0].formPath;
-
-          if(data[0].fields){
-            this.columnDefs = this.generateColumns(data[0].fields);
-          }
-    }, error => this.errorMessage = <any>error);
-
-    this.dataService.getAll(this.formPath)
-    .subscribe(data => {
-      this.rowData = this.parseObjectData(data);
-
-      //generate columns from row data
-      // if (this.rowData) {
-      //   this.columnDefs = this.generateColumns(this.rowData);
-      // }
-  
-    }, error => this.errorMessage = <any>error);
-
-
     // this.getFormDefination = new Promise((resolve, reject) => {
     //   this.dataService.getFilter('forms','formPath', this.formPath)
     //       .subscribe(data => {
@@ -244,21 +240,44 @@ export class DataGridComponent {
     //   enableValue: true
     // };
 
-    
   }
 
   // ngOnInit(): void {
   //   debugger
-
   // }
 
+
+  onBtExport() {
+    var params = {
+      skipHeader: false,
+      // columnGroups: getBooleanValue("#columnGroups"),
+      // skipFooters: getBooleanValue("#skipFooters"),
+      // skipGroups: getBooleanValue("#skipGroups"),
+      // skipPinnedTop: getBooleanValue("#skipPinnedTop"),
+      // skipPinnedBottom: getBooleanValue("#skipPinnedBottom"),
+      // allColumns: getBooleanValue("#allColumns"),
+      // onlySelected: getBooleanValue("#onlySelected"),
+      // suppressQuotes: getBooleanValue("#suppressQuotes"),
+      fileName: "test file",
+      columnSeparator: ","
+    };
+    
+    this.gridApi.exportDataAsCsv(params);
+  }
+
+  onSelectionChanged() {
+    var selectedRows = this.gridApi.getSelectedRows();
+    this.formItemPath = this.formPath + '/' + selectedRows[0].id;
+  }
+
+
+  onGridReady(params) {
+    this.gridApi = params.api;
+  }
 
   // onGridReady(params) {
   //   this.gridApi = params.api;
   //   this.gridColumnApi = params.columnApi;
-
-
-    
 
   //   // this.dataService.getExternal("https://raw.githubusercontent.com/ag-grid/ag-grid/master/packages/ag-grid-docs/src/olympicWinnersSmall.json").subscribe(
   //   //   data => {
@@ -280,7 +299,6 @@ export class DataGridComponent {
   //   //   this.updatecolumnDefs(response);
 
   //     //this.gridApi.refreshHeader();
-  
 
   //   // })
 
@@ -304,37 +322,35 @@ export class DataGridComponent {
   //   }
   // }
 
-  
-
 }
 
 
-function getBooleanValue(cssSelector) {
-  return document.querySelector(cssSelector).checked === true;
-}
+// function getBooleanValue(cssSelector) {
+//   return document.querySelector(cssSelector).checked === true;
+// }
 
-function getDatePicker() {
-  function Datepicker() {}
-  Datepicker.prototype.init = function(params) {
-    this.eInput = document.createElement("input");
-    this.eInput.value = params.value;
-    //$(this.eInput).datepicker({ dateFormat: "dd/mm/yy" });
-  };
-  Datepicker.prototype.getGui = function() {
-    return this.eInput;
-  };
-  Datepicker.prototype.afterGuiAttached = function() {
-    this.eInput.focus();
-    this.eInput.select();
-  };
-  Datepicker.prototype.getValue = function() {
-    return this.eInput.value;
-  };
-  Datepicker.prototype.destroy = function() {};
-  Datepicker.prototype.isPopup = function() {
-    return false;
-  };
-  return Datepicker;
-}
+// function getDatePicker() {
+//   function Datepicker() {}
+//   Datepicker.prototype.init = function(params) {
+//     this.eInput = document.createElement("input");
+//     this.eInput.value = params.value;
+//     //$(this.eInput).datepicker({ dateFormat: "dd/mm/yy" });
+//   };
+//   Datepicker.prototype.getGui = function() {
+//     return this.eInput;
+//   };
+//   Datepicker.prototype.afterGuiAttached = function() {
+//     this.eInput.focus();
+//     this.eInput.select();
+//   };
+//   Datepicker.prototype.getValue = function() {
+//     return this.eInput.value;
+//   };
+//   Datepicker.prototype.destroy = function() {};
+//   Datepicker.prototype.isPopup = function() {
+//     return false;
+//   };
+//   return Datepicker;
+// }
 
 

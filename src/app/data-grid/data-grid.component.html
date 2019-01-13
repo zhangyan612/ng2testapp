@@ -144,14 +144,21 @@
 
 <h2>Data for {{formName}}</h2>
 
-<button (click)="onBtExport()">Export to CSV</button>
-
-<p>            
-    <a class="btn btn-sm btn-outline-success" routerLink="/forms/{{formPath}}">
-    <i class="fa fa-plus" aria-hidden="true"></i>
-        Create New
+    <a class="btn btn-sm btn-outline-primary" routerLink="/forms/{{formPath}}">
+        <i class="fa fa-plus" aria-hidden="true"></i>
+            Create New
     </a>
-</p>
+
+    <a class="btn btn-sm btn-outline-primary" *ngIf="formItemPath"  routerLink="/forms/{{formItemPath}}">
+        <i class="fa fa-pencil" aria-hidden="true"></i>
+            Edit
+    </a>
+
+
+    <button class="btn btn-sm btn-outline-success" (click)="onBtExport()" style="float:right;">
+        <i class="fa fa-file-excel-o" aria-hidden="true"></i> Export to CSV
+    </button>
+    
 <!-- <p style="margin-top: 100px;"></p> -->
 <p></p>
 <!-- <ag-grid-angular
@@ -181,11 +188,15 @@
   </ag-grid-angular> -->
 
 
+
 <ag-grid-angular style="height: 600px;" id="myGrid" class="ag-theme-balham"
   [rowData]="rowData"
   [columnDefs]="columnDefs"
   [enableSorting]="true"
   [enableFilter]="true"
-  [enableColResize]="true">
+  [enableColResize]="true"
+  [rowSelection]="rowSelection"
+  (selectionChanged)="onSelectionChanged($event)"
+  (gridReady)="onGridReady($event)">
   
 </ag-grid-angular>

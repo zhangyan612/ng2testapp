@@ -64,9 +64,9 @@ export class DataService {
     );
   }
 
-  update(url: string, data: any): Observable<any> {
-    return this.http.put<any>(this.apiUrl + url, data, this.httpOptions)
-      .pipe(
+  update(url: string, id: number, data: any): Observable<any> {
+    let bodyString = JSON.stringify(data);
+    return this.http.put<any>(this.apiUrl + url + '/' + id, bodyString, this.httpOptions).pipe(
         catchError(this.handleError)
       );
   }
