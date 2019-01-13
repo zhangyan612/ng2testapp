@@ -5,6 +5,14 @@ import "ag-grid-community";
 import { ActivatedRoute } from "@angular/router";
 import { AlertService } from '../services/alert.service';
 import * as $ from 'jquery';
+// import { pivotUtilities, renderers }from "../../../node_modules/pivottable"
+import { tipsData } from "../shared/fields-config";
+import 'pivottable/dist/pivot.min.js';
+// import 'pivottable/dist/pivot.min.css';
+
+// import 'pivottable/dist/plotly_renderers.min.js';
+
+//import * as pivotModule from 'pivottable';
 
 // class ColumnDefination {
 //   headerName: string;
@@ -17,7 +25,7 @@ import * as $ from 'jquery';
 //     this.width = width;
 //     this.filterParams = filterParams;
 //   }
-// }
+// } npm install --save @types/pivottable
 
 @Component({
   selector: 'app-data-grid',
@@ -247,7 +255,21 @@ export class DataGridComponent {
   ngOnInit(): void {
 
     $(document).ready(function(){
-      $("#output").html("Hello World");
+      //debugger
+      // $("#output").html("Hello World");
+      var utils = $.pivotUtilities;;
+      var heatmap =  utils.renderers["Heatmap"];
+      var sumOverSum =  utils.aggregators["Sum over Sum"];
+
+      $("#output").pivot(
+        tipsData, {
+          rows: ["sex", "smoker"],
+          cols: ["day", "time"],
+          aggregator: sumOverSum(["tip", "total_bill"]),
+          renderer: heatmap
+        });
+      
+
     });
 
     

@@ -29,6 +29,7 @@
     "font-awesome": "^4.7.0",
     "jquery": "^3.3.1",
     "ng2-dragula": "^2.1.1",
+    "pivottable": "^2.23.0",
     "popper.js": "^1.14.3",
     "rxjs": "~6.3.3",
     "zone.js": "~0.8.26"
