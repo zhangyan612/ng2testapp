@@ -32,6 +32,7 @@ import { FormsComponent } from './forms/forms.component';
 import { TextComponent } from './dynamic-bootstrap/text/text.component';
 import { AlertComponent } from './alert/alert.component';
 import { AlertService } from './services/alert.service';
+import { PivotWrapperComponent } from './pivot-wrapper/pivot-wrapper.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,8 @@ import { AlertService } from './services/alert.service';
     DataGridComponent,
     SafeHtmlPipe,
     FormsComponent,
-    AlertComponent
+    AlertComponent,
+    PivotWrapperComponent
   ],
   imports: [
     BrowserModule,

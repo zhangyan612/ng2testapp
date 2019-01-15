@@ -4,10 +4,9 @@ import { DataService } from '../services/data.service'
 import "ag-grid-community";
 import { ActivatedRoute } from "@angular/router";
 import { AlertService } from '../services/alert.service';
-import * as $ from 'jquery';
-// import { pivotUtilities, renderers }from "../../../node_modules/pivottable"
+
 import { tipsData } from "../shared/fields-config";
-import 'pivottable/dist/pivot.min.js';
+
 // import 'pivottable/dist/pivot.min.css';
 // import 'pivottable/dist/plotly_renderers.min.js';
 
@@ -254,23 +253,42 @@ export class DataGridComponent {
 
   ngOnInit(): void {
 
-    $(document).ready(function(){
-      //debugger
-      // $("#output").html("Hello World");
-      var utils = $.pivotUtilities;;
-      var heatmap =  utils.renderers["Heatmap"];
-      var sumOverSum =  utils.aggregators["Sum over Sum"];
+    // $(document).ready(function(){
+    //   //debugger
+    //   // $("#output").html("Hello World");
+    //   var utils = $.pivotUtilities;;
+    //   var heatmap =  utils.renderers["Heatmap"];
+    //   var sumOverSum =  utils.aggregators["Sum over Sum"];
 
-      $("#output").pivot(
-        tipsData, {
-          rows: ["sex", "smoker"],
-          cols: ["day", "time"],
-          aggregator: sumOverSum(["tip", "total_bill"]),
-          renderer: heatmap
-        });
+    //   // $("#output").pivotUI(
+    //   //   tipsData, {
+    //   //     rows: ["sex", "smoker"],
+    //   //     cols: ["day", "time"],
+    //   //     aggregator: sumOverSum(["tip", "total_bill"]),
+    //   //     renderer: heatmap
+    //   //   });
+
+    //     // $("#output").pivotUI(
+    //     //   $.pivotUtilities.tipsData, {
+    //     //     rows: ["sex", "smoker"],
+    //     //     cols: ["day", "time"],
+    //     //     vals: ["tip", "total_bill"],
+    //     //     aggregatorName: "Sum over Sum",
+    //     //     rendererName: "Heatmap"
+    //     //   });
+
+    //     $("#output").pivotUI(
+    //       [
+    //           {color: "blue", shape: "circle"},
+    //           {color: "red", shape: "triangle"}
+    //       ],
+    //       {
+    //           rows: ["color"],
+    //           cols: ["shape"]
+    //       }
+    //   );
       
-
-    });
+    // });
 
     
   }
