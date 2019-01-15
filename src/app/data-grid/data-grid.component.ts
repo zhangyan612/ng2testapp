@@ -1,15 +1,12 @@
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { DataService } from '../services/data.service'
-
 import "ag-grid-community";
 import { ActivatedRoute } from "@angular/router";
 import { AlertService } from '../services/alert.service';
-
 import { tipsData } from "../shared/fields-config";
 
 // import 'pivottable/dist/pivot.min.css';
 // import 'pivottable/dist/plotly_renderers.min.js';
-
 //import * as pivotModule from 'pivottable';
 
 // class ColumnDefination {
@@ -23,8 +20,7 @@ import { tipsData } from "../shared/fields-config";
 //     this.width = width;
 //     this.filterParams = filterParams;
 //   }
-// } npm install --save @types/pivottable
-
+// } 
 
 @Component({
   selector: 'app-data-grid',
@@ -50,6 +46,7 @@ export class DataGridComponent {
   formItemPath: string;
   selectedItemId: number;
   //getFormDefination: any;
+  pivotData: any[];
 
   generateColumns(data: any[]) {
     let columnDefinitions = [];
@@ -122,7 +119,8 @@ export class DataGridComponent {
     this.dataService.getAll(this.formPath)
     .subscribe(data => {
       this.rowData = this.parseObjectData(data);
-
+      // building pivot
+      this.pivotData = this.rowData;
       //generate columns from row data
       // if (this.rowData) {
       //   this.columnDefs = this.generateColumns(this.rowData);
@@ -131,7 +129,7 @@ export class DataGridComponent {
     }, error => this.errorMessage = <any>error);
 
     this.rowSelection = "single";
-
+    //this.pivotData = [{"text3":"tes save data","line4":"232","line5":1232,"line6":"232","date7":{"year":2018,"month":11,"day":10},"date8":{"year":2018,"month":11,"day":18},"select9":"IL","checkbox10":true,"radio11":"Association","id":0},{"text3":"New Form ","line4":"2321","line5":3321,"line6":"231","date7":{"year":2018,"month":12,"day":2},"date8":{"year":2018,"month":11,"day":8},"select9":"IL","checkbox10":true,"radio11":"Trust","id":1},{"text3":"test save data","line4":"232","line5":1232,"line6":"232","date7":{"year":2018,"month":11,"day":10},"date8":{"year":2018,"month":11,"day":18},"select9":"IL","checkbox10":true,"radio11":"Association","id":2},{"text3":"New Form Test","line4":"2321","line5":3321,"line6":"231","date7":{"year":2018,"month":12,"day":2},"date8":{"year":2018,"month":11,"day":8},"select9":"IL","checkbox10":true,"radio11":"Trust","id":3},{"text3":"test update","line4":"111","line5":1111,"line6":"121","date7":{"year":2019,"month":1,"day":9},"date8":null,"select9":"IL","checkbox10":true,"radio11":"Corporation","id":5},{"text3":"test more","line4":"2322","line5":3322,"line6":"323","date7":{"year":2019,"month":1,"day":18},"date8":{"year":2019,"month":1,"day":12},"select9":"IL","checkbox10":true,"radio11":"Trust","id":7}];
     // this.columnDefs = [
     //   {
     //     width: 40,
@@ -287,10 +285,7 @@ export class DataGridComponent {
     //           cols: ["shape"]
     //       }
     //   );
-      
     // });
-
-    
   }
 
   onBtExport() {
