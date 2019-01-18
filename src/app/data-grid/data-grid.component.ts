@@ -96,23 +96,6 @@ export class DataGridComponent {
       finalData.push(newObj);
     }
     return finalData;
-    // data.map(object => {
-    //   Object
-    //     .keys(object)
-    //     .map((value, index) => {
-    //       console.log(index)
-
-    //       if(header[index]){
-    //         var head = header[index].headerName;
-
-    //         console.log(header[index].headerName )
-    //         finalData.push({head: value});
-    //       }
-    //     })
-    // })
-
-    // console.log(finalData)
-
   }
 
   renameKeys(obj, newKeys) {
@@ -155,21 +138,11 @@ export class DataGridComponent {
             this.columnDefs = this.generateColumns(data[0].fields);
           }
 
-
           this.dataService.getAll(this.formPath)
           .subscribe(data => {
             this.rowData = this.parseObjectData(data);
-            console.log(this.rowData);
             this.pivotData = this.buildDataSet(this.defObj, this.rowData);
 
-            // const obj = { text3: "1", line4: "2" };
-            // const iHave = []
-            // const newKeys = { text3: "Form of Organization", line4: "Line 1" };
-            // const renamedObj = this.renameKeys(obj, newKeys);
-            // console.log(renamedObj);
-
-            // building pivot
-            //this.pivotData = this.buildDataSet(this.columnDefs, this.rowData);
             //generate columns from row data
             // if (this.rowData) {
             //   this.columnDefs = this.generateColumns(this.rowData);
@@ -179,11 +152,7 @@ export class DataGridComponent {
 
     }, error => this.errorMessage = <any>error);
 
-    
-
     this.rowSelection = "single";
-
-
 
     //this.pivotData = tipsData; 
     // [["Form Of Organization","Line 1","Line 2","Line 3","Start Date","End Date","State","Self-employed?","Form of organization"],

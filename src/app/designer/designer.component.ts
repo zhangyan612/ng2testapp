@@ -176,7 +176,23 @@ export class DesignerComponent implements OnInit {
     //this.selected.name = 
   }
 
-  onOptionChange($event, i){
+  selectedFields() {
+    let lst = [];
+    let objs = this.formDefination.fields;
+
+    for (var property in objs) {
+      if (objs.hasOwnProperty(property)) {
+        if(objs[property].name){
+          //console.log(objs[property].name + ': ' + objs[property].label)
+          lst.push({name: objs[property].name, label: objs[property].label});
+        }
+      }
+    }
+    return lst;
+  }
+
+
+  onOptionChange($event, i) {
     var value = $event.target.value;
     
     // not remove for now
@@ -203,7 +219,6 @@ export class DesignerComponent implements OnInit {
   //       .filter((control) => !configControls.includes(control))
   //       .forEach((control) => this.form.removeControl(control));
 
-
   //     this.form = this.createControl();
   //     // configControls
   //     //   .filter((control) => !controls.includes(control));
@@ -211,7 +226,6 @@ export class DesignerComponent implements OnInit {
   //       //   const config = this.fields.find((control) => control.name === name);
   //       //   this.form.addControl(name, this.createControl());
   //       // });      
-
   //   }
   // }
   

@@ -126,7 +126,12 @@ export const availableFields: FieldConfig[] = [
         inputType: "text",
         name: "text",
         placeholder:"",
-        validations: []
+        validations: [],
+        condition: {
+          show: "",
+          when: null,
+          equal: ""
+        },
     },
     {
       type: "input",
@@ -134,7 +139,12 @@ export const availableFields: FieldConfig[] = [
       inputType: "number",
       name: "line",
       placeholder:"",
-      validations: []
+      validations: [],
+      condition: {
+        show: "",
+        when: null,
+        equal: ""
+      },
     },
     {
       type: "input",

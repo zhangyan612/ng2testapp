@@ -105,13 +105,10 @@ export class FormsComponent implements OnInit {
   valueChangedWatcher(formData) {
     console.log(formData);
 
-
     if(formData.line4) {
       formData.line5 = +formData.line4 + 1000;
       this.form.setValue(formData);
     }
-
-
   }
   
   // ngOnChange(){

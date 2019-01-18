@@ -138,9 +138,32 @@
         </ng-template>
       </ngb-tab>
       <ngb-tab>
-        <ng-template ngbTabTitle>Custom</ng-template>
+        <ng-template ngbTabTitle>Advanced</ng-template>
         <ng-template ngbTabContent>
-          Some Custom class or attach code
+          <p></p>
+          <p><b>Display Condition</b></p>
+
+          <div class="form-group">
+            <label for="">Show this field on page</label>
+            <select class="form-control" [(ngModel)]="selected.condition.show"> 
+              <option>true</option>
+              <option>false</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="">When</label>
+            <select class="form-control" [(ngModel)]="selected.condition.when"> 
+                <option *ngFor="let obj of selectedFields()" [value]="obj.name">{{obj.label}}</option>
+              </select>
+          </div>
+
+          <div class="form-group">
+            <label for="">Equals</label>
+            <input type="text" class="form-control" [(ngModel)]="selected.condition.equal">
+          </div>
+
+
         </ng-template>
       </ngb-tab>
       <ngb-tab title="Form Config">
