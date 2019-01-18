@@ -102,20 +102,16 @@ export class FormsComponent implements OnInit {
 
   }
 
-  valueChangedWatcher(formData) {
-    console.log(formData);
-
-    if(formData.line4) {
-      formData.line5 = +formData.line4 + 1000;
-      this.form.setValue(formData);
+  
+  valueChangedWatcher(data) {
+    // can attach additional calculation logic
+    if(data.line4) {
+      data.line5 = +data.line4 + 1000;
+      this.form.setValue(data, { emitEvent: false });
     }
+    console.log(data);
   }
   
-  // ngOnChange(){
-  //   console.log('ngOnChange');
-  //   debugger
-  // }
-
   saveForm() {
     console.log('saveForm');
     console.log(this.formPath);
