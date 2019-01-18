@@ -47,10 +47,11 @@ export class DataGridComponent {
   selectedItemId: number;
   //getFormDefination: any;
   pivotData: any[];
+  defObj: any = {};
 
   generateColumns(data: any[]) {
     let columnDefinitions = [];
-
+    let dfObj = {}
     data.forEach(function (obj) {
       if(obj.name){
         let mappedColumn = {
@@ -58,10 +59,12 @@ export class DataGridComponent {
           field: obj.name
         }
 
+        dfObj[obj.name] = obj.label;
         columnDefinitions.push(mappedColumn);
       }
     }); 
     
+    this.defObj = dfObj;
     // method based on data key
     // data.map(object => {
     //   Object
@@ -84,6 +87,43 @@ export class DataGridComponent {
     return columnDefinitions;
   }
 
+  buildDataSet(defObj: {}, data: any[]){
+    console.log(defObj)
+    let finalData = [];
+
+    for(let i =0; i<data.length; i++){
+      let newObj = this.renameKeys(data[i], defObj);
+      finalData.push(newObj);
+    }
+    return finalData;
+    // data.map(object => {
+    //   Object
+    //     .keys(object)
+    //     .map((value, index) => {
+    //       console.log(index)
+
+    //       if(header[index]){
+    //         var head = header[index].headerName;
+
+    //         console.log(header[index].headerName )
+    //         finalData.push({head: value});
+    //       }
+    //     })
+    // })
+
+    // console.log(finalData)
+
+  }
+
+  renameKeys(obj, newKeys) {
+    const keyValues = Object.keys(obj).map(key => {
+      const newKey = newKeys[key] || key;
+      return { [newKey] : obj[key] };
+    });
+    return Object.assign({}, ...keyValues);
+  }
+
+  
   parseObjectData(data: any[]) {
     data.forEach(function (obj) {
       Object
@@ -114,21 +154,46 @@ export class DataGridComponent {
           if(data[0].fields){
             this.columnDefs = this.generateColumns(data[0].fields);
           }
+
+
+          this.dataService.getAll(this.formPath)
+          .subscribe(data => {
+            this.rowData = this.parseObjectData(data);
+            console.log(this.rowData);
+            this.pivotData = this.buildDataSet(this.defObj, this.rowData);
+
+            // const obj = { text3: "1", line4: "2" };
+            // const iHave = []
+            // const newKeys = { text3: "Form of Organization", line4: "Line 1" };
+            // const renamedObj = this.renameKeys(obj, newKeys);
+            // console.log(renamedObj);
+
+            // building pivot
+            //this.pivotData = this.buildDataSet(this.columnDefs, this.rowData);
+            //generate columns from row data
+            // if (this.rowData) {
+            //   this.columnDefs = this.generateColumns(this.rowData);
+            // }
+        
+          }, error => this.errorMessage = <any>error);
+
     }, error => this.errorMessage = <any>error);
 
-    this.dataService.getAll(this.formPath)
-    .subscribe(data => {
-      this.rowData = this.parseObjectData(data);
-      // building pivot
-      this.pivotData = this.rowData;
-      //generate columns from row data
-      // if (this.rowData) {
-      //   this.columnDefs = this.generateColumns(this.rowData);
-      // }
-  
-    }, error => this.errorMessage = <any>error);
+    
 
     this.rowSelection = "single";
+
+
+
+    //this.pivotData = tipsData; 
+    // [["Form Of Organization","Line 1","Line 2","Line 3","Start Date","End Date","State","Self-employed?","Form of organization"],
+    // ["tes save data","232","1232","232","11/10/2018","11/18/2018","IL","true","Association"],
+    // ["New Form ","2321","3321","231","12/2/2018","11/8/2018","IL","true","Trust"],
+    // ["test save data","232","1232","232","11/10/2018","11/18/2018","IL","true","Association"],
+    // ["New Form Test","2321","3321","231","12/2/2018","11/8/2018","IL","true","Trust"],
+    // ["test update","111","1111","121","1/9/2019","","IL","true","Corporation"],
+    // ["test more","2322","3322","323","1/18/2019","1/12/2019","IL","true","Trust"]];
+
     //this.pivotData = [{"text3":"tes save data","line4":"232","line5":1232,"line6":"232","date7":{"year":2018,"month":11,"day":10},"date8":{"year":2018,"month":11,"day":18},"select9":"IL","checkbox10":true,"radio11":"Association","id":0},{"text3":"New Form ","line4":"2321","line5":3321,"line6":"231","date7":{"year":2018,"month":12,"day":2},"date8":{"year":2018,"month":11,"day":8},"select9":"IL","checkbox10":true,"radio11":"Trust","id":1},{"text3":"test save data","line4":"232","line5":1232,"line6":"232","date7":{"year":2018,"month":11,"day":10},"date8":{"year":2018,"month":11,"day":18},"select9":"IL","checkbox10":true,"radio11":"Association","id":2},{"text3":"New Form Test","line4":"2321","line5":3321,"line6":"231","date7":{"year":2018,"month":12,"day":2},"date8":{"year":2018,"month":11,"day":8},"select9":"IL","checkbox10":true,"radio11":"Trust","id":3},{"text3":"test update","line4":"111","line5":1111,"line6":"121","date7":{"year":2019,"month":1,"day":9},"date8":null,"select9":"IL","checkbox10":true,"radio11":"Corporation","id":5},{"text3":"test more","line4":"2322","line5":3322,"line6":"323","date7":{"year":2019,"month":1,"day":18},"date8":{"year":2019,"month":1,"day":12},"select9":"IL","checkbox10":true,"radio11":"Trust","id":7}];
     // this.columnDefs = [
     //   {
